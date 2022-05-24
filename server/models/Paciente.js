@@ -1,0 +1,26 @@
+const mongoose = require('mongoose');
+const { Schema } = require('mongoose');
+
+
+const pacienteSchema = new Schema({
+
+  _id: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  terapeuta:  {
+    type: Schema.Types.ObjectId,
+    ref: 'Terapeuta'
+  },
+  nombre: {
+    type: String,
+  },
+  email: {
+    type: String,
+    match: [/.+@.+\..+/, 'Must match an email address!'],
+  },
+});
+
+const Paciente= mongoose.model('Paciente', pacienteSchema);
+
+module.exports = Paciente;
