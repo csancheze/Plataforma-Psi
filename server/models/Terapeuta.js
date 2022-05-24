@@ -49,6 +49,12 @@ const terapeutaSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Paciente'
     }
+  ],
+  dias: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Dia'
+    },
   ]
 });
 

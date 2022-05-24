@@ -5,5 +5,7 @@ const Servicios = require('./Servicios')
 const Posts = require('./Posts')
 const Paciente = require('./Paciente')
 const Areas = require ('./Areas')
+const Dia = require ('./Dia')
+const Hora = require ('./Hora')
 
-module.exports = { User, Terapeuta, Modelos, Servicios, Posts, Paciente, Areas};
+module.exports = { User, Terapeuta, Modelos, Servicios, Posts, Paciente, Areas, Dia, Hora};

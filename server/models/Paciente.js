@@ -19,6 +19,9 @@ const pacienteSchema = new Schema({
     type: String,
     match: [/.+@.+\..+/, 'Must match an email address!'],
   },
+  notas: [{
+    type: String,
+  }]
 });
 
 const Paciente= mongoose.model('Paciente', pacienteSchema);

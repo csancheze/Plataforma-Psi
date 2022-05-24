@@ -1,6 +1,8 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
-const { User, Terapeuta, Areas, Modelos, Paciente, Posts, Servicios } = require('../models');
+const { User, Terapeuta, Areas, Modelos, Paciente, Posts, Servicios, Dia, Hora } = require('../models');
+const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+const horas = ["8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00", "20:00","21:00"]
 
 const resolvers = {
     Query: {
@@ -91,6 +93,21 @@ const resolvers = {
                     servicios: args.servicios,
                     areas: args.areas,
                 })
+                for (let i = 0; i < dias.length; i++) {
+                    const diasData = await Dia.create({name: dias[i]})
+                    const terapeutaDiadata = await Terapeuta.findByIdAndUpdate(terapeutaData._id, {
+                        $push: {dias: diasData}
+                    })
+                    for (let j = 0; j < horas.length; j++) {
+                        const horaData = await Hora.create({tiempo: horas[j]})
+                        const diaData = await Dia.findByIdAndUpdate(diasData._id, {
+                            $push: {horas: horaData}
+                        })
+                        console.log(diaData)
+                    }
+                    console.log(terapeutaDiadata)
+                }
+
                 return { token: terapeutaToken, user: terapeutaUser, terapeuta: terapeutaData };
             } catch (err) {
                 console.log(err);
