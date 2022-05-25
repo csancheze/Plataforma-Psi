@@ -13,7 +13,7 @@ const horaSchema = new Schema({
     }
 });
 
-const Hora = mongoose.model('hora', horaSchema);
+const Hora = mongoose.model('Hora', horaSchema);
 
 module.exports = Hora;
 

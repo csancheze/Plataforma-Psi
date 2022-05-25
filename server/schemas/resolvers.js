@@ -100,6 +100,16 @@ const resolvers = {
 
         },
 
+        addDia: async (parent, args) => {
+            const diasData = await Dia.create({name: args.name})
+            return diasData
+        },
+
+        addHora: async (parent, args) => {
+            const horas = await Hora.create({tiempo: args.tiempo})
+            return horas
+        },
+
         addTerapeuta: async (parent, args) => {
             try {
 
