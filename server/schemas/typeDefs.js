@@ -25,6 +25,7 @@ const typeDefs = gql`
 
 
     type Terapeuta {
+        _id: ID
         nombre: String
         correo: String
         cedula: String
