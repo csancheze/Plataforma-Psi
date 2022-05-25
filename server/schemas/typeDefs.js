@@ -101,7 +101,6 @@ const typeDefs = gql`
             role: String!
             nombre: String
             correo: String
-            terapeuta: ID!
             ): Auth
         addTerapeuta(
             username: String!
