@@ -11,7 +11,7 @@ const terapeutaSchema = new Schema({
   nombre: {
     type: String,
   },
-  email: {
+  correo: {
     type: String,
     match: [/.+@.+\..+/, 'Must match an email address!'],
   },
@@ -21,10 +21,10 @@ const terapeutaSchema = new Schema({
   bio: {
     type: String,
   },
-  modelo: {
+  modelos: [{
       type: Schema.Types.ObjectId,
       ref: 'Modelos'
-    }
+    }]
   ,
   servicios: [
     {

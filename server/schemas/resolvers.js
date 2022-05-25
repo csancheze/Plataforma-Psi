@@ -23,12 +23,22 @@ const resolvers = {
 
                 case "Terapeuta":
                     const terapeutaData = await Terapeuta.findOne({ _id: context.user._id })
-                        .populate('modelo')
+                        .select('-__v -password')
+                        .populate('modelos')
                         .populate('areas')
                         .populate('servicios')
                         .populate('areas')
                         .populate('posts')
                         .populate('pacientes')
+                        .populate('dias')
+                        .populate([{
+                            path: 'dias',
+                            populate: {
+                                path: 'horas',
+                                model: 'Hora'
+                            }
+                        }])
+                        
                     return { user: userData, terapeuta: terapeutaData };
                 default:
                     console.log(`Sorry, we are out of profiles`);
@@ -37,11 +47,19 @@ const resolvers = {
         },
         terapeuta: async (parent, args, context) => {
             const terapeutaData = await Terapeuta.findById(args._id)
-                .populate('modelo')
+                .populate('modelos')
                 .populate('areas')
                 .populate('servicios')
                 .populate('areas')
                 .populate('posts')
+                .populate('dias')
+                .populate([{
+                    path: 'dias',
+                    populate: {
+                        path: 'horas',
+                        model: 'Hora'
+                    }
+                }])
             return terapeutaData
         },
 
@@ -61,16 +79,20 @@ const resolvers = {
     },
 
     Mutation: {
-        addPaciente: async (parent, args) => {
+        addPaciente: async (parent, args, context) => {
             try {
                 const pacienteUser = await User.create(args);
                 const pacienteToken = signToken(pacienteUser);
                 const pacienteData = await Paciente.create({
                     _id: pacienteUser._id,
                     nombre: args.nombre,
-                    email: args.correo,
-                    terapeuta: args.terapeuta,
+                    correo: args.correo,
+                    terapeuta: context.user._id,
                 })
+                const terapeutaData = await Terapeuta.findByIdAndUpdate(context.user._id, {
+                    $push: {pacientes: pacienteData}
+                })
+                console.log(terapeutaData)
                 return { token: pacienteToken, user: pacienteUser, paciente: pacienteData };
             } catch (err) {
                 console.log(err);
@@ -86,10 +108,10 @@ const resolvers = {
                 const terapeutaData = await Terapeuta.create({
                     _id: terapeutaUser._id,
                     nombre: args.nombre,
-                    email: args.correo,
+                    correo: args.correo,
                     cedula: args.cedula,
                     bio: args.bio,
-                    modelo: args.modelo,
+                    modelos: args.modelos,
                     servicios: args.servicios,
                     areas: args.areas,
                 })
@@ -155,6 +177,33 @@ const resolvers = {
             const Post = await Posts.create(args);
             return Post;
         },
+        updateDia: async (parent, args) => {
+            let activo = args.active
+            activo ? activo = false : activo = true
+            const dia = await Dia.findByIdAndUpdate(args.diaId, {
+                active: activo
+            })
+            return dia
+        },
+        updateHora: async (parent, args) => {
+            let activo = args.active
+            activo ? activo = false : activo = true
+            const hora = await Hora.findByIdAndUpdate(args.horaId, {
+                active: activo
+            })
+            return hora
+        },
+        updateTerapeuta: async (parent, args, context) => {
+            const terapeutaData = await Terapeuta.findByIdAndUpdate(context.user._id, {
+                correo: args.correo,
+                cedula: args.cedula,
+                bio: args.bio,
+                modelos: args.modelos,
+                servicios: args.servicios,
+                areas: args.areas,
+            })
+            return terapeutaData
+        }
     
     }
 

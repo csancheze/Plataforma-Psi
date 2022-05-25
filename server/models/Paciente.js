@@ -15,7 +15,7 @@ const pacienteSchema = new Schema({
   nombre: {
     type: String,
   },
-  email: {
+  correo: {
     type: String,
     match: [/.+@.+\..+/, 'Must match an email address!'],
   },

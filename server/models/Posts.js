@@ -16,6 +16,9 @@ const postsSchema = new Schema({
   },
   image: {
     type: String
+  },
+  dateCreated: {
+    type: Date
   }
 });
 
