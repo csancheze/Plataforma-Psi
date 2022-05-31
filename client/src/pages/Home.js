@@ -38,7 +38,7 @@ const Home = () => {
 
     return(
         <main className="container">
-            <h2 className ="display-2"> Entra</h2>
+            <h2 className ="display-2"> Entra </h2>
                 <form onSubmit={handleFormSubmit}>
                     <input
                     className="form-input"
