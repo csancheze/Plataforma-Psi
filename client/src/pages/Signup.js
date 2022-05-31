@@ -4,42 +4,30 @@ import { useMutation, useQuery } from '@apollo/client';
 import Auth from "../utils/auth";
 import { AREAS, MODELOS, SERVICIOS } from "../utils/queries";
 import NewModelo from "../components/NewModelo";
-
+import NewServicio from "../components/NewServicio";
+import NewArea from "../components/NewArea";
 
 
 const SignUp = () => {
     const [formState, setFormState] = useState({ email: '', password: ''});
     const [AddTerapeuta] = useMutation(ADD_TERAPEUTA);
-    const [modelos, setModelos] = useState([])
     const [formModelos, setFormModelos] = useState([])
     const [addedModelos, setAddedModelos] = useState([])
-    const [servicios, setServicios] = useState([])
     const [formServicios, setFormServicios] = useState([])
     const [addedServicios, setAddedServicios] = useState([])
-    const [areas, setAreas] = useState([])
     const [formAreas, setFormAreas] = useState([])
     const [addedAreas, setAddedAreas] = useState([])
     const [showNewModelo, setShowNewModelo] = useState(false)
+    const [showNewServicio, setShowNewServicio] = useState(false)
+    const [showNewArea, setShowNewArea] = useState(false)
 
-    const { loading: loadingModelos, data: dataModelos } = useQuery(MODELOS);
-    const { loading: loadingServicios, data: dataServicios } = useQuery(SERVICIOS);
-    const { loading: loadingAreas, data: dataAreas } = useQuery(AREAS);
+    let { loading: loadingModelos, data: dataModelos, refetch: refetchModelos } = useQuery(MODELOS);
+    let { loading: loadingServicios, data: dataServicios , refetch: refetchServicios} = useQuery(SERVICIOS);
+    let { loading: loadingAreas, data: dataAreas, refetch: refetchAreas} = useQuery(AREAS);
 
-    const listaModelos = dataModelos?.modelos || []
-    // setModelos(listaModelos)
-    const listaServicios = dataServicios?.servicios || []
-    // setServicios(listaServicios)
-    const listaAreas = dataAreas?.areas || []
-    // setAreas(listaAreas)
-
-
-
-    useEffect (() => {
-        setModelos(dataModelos?.modelos||[])
-        setServicios(listaServicios)
-        setAreas(listaAreas)
-    })
-
+    let modelos = dataModelos?.modelos || []
+    let servicios = dataServicios?.servicios || []
+    let areas = dataAreas?.areas || []
 
     const addModelos = (event, id, modelo) => {
       event.preventDefault()
@@ -81,36 +69,59 @@ const SignUp = () => {
       event.preventDefault()
       setShowNewModelo(true)
     }
-    const handleCloseModelo = () => {
+    const handleCloseModelo = (event) => {
+      event.preventDefault()
+      refetchModelos()
       setShowNewModelo(false);
     }
+
+    const añadirServicio = (event) => {
+      event.preventDefault()
+      setShowNewServicio(true)
+    }
+    const handleCloseservicio = (event) => {
+      event.preventDefault()
+      refetchServicios()
+      setShowNewServicio(false);
+    }
+
+    const añadirArea = (event) => {
+      event.preventDefault()
+      setShowNewArea(true)
+    }
+    const handleCloseArea = (event) => {
+      event.preventDefault()
+      refetchAreas()
+      setShowNewArea(false);
+    }
+
   
     const handleFormSubmit = async (event) => {
       event.preventDefault();
-      try {
-      const mutationResponse = await AddTerapeuta({
-        variables: {
-          email: formState.email,
-          password: formState.password,
-          username: formState.username,
-          role: "Terapeuta",
-          nombre: formState.nombre,
-          correo: formState.correo,
-          cedula: formState.cedula,
-          bio: formState.bio,
-          modelos: formModelos,
-          servicios: formServicios,
-          areas: formAreas
-        },
-      });
-      const token = mutationResponse.data.AddTerapeuta.token;
-      Auth.login(token);
-    } catch (e) {
-      alert('Failed to sign up!')
-      console.error(e);
-    };
-
+        try {
+        const mutationResponse = await AddTerapeuta({
+          variables: {
+            email: formState.email,
+            password: formState.password,
+            username: formState.username,
+            role: "Terapeuta",
+            nombre: formState.nombre,
+            correo: formState.correo,
+            cedula: formState.cedula,
+            bio: formState.bio,
+            modelos: formModelos,
+            servicios: formServicios,
+            areas: formAreas
+          },
+        });
+        const token = mutationResponse.data.AddTerapeuta.token;
+        Auth.login(token);
+      } catch (e) {
+        alert('Failed to sign up!')
+        console.error(e);
+      };
     }
+
     const handleChange = (event) => {
       const { name, value } = event.target;
       setFormState({
@@ -118,7 +129,9 @@ const SignUp = () => {
         [name]: value,
       });
     };
-  
+    
+    
+
     return (
         <div>
               <form  onSubmit={handleFormSubmit} className="border rounded-3 p-3">
@@ -191,37 +204,41 @@ const SignUp = () => {
                 <div>
                   <h4>Modelos Terapéuticos: Haz click en el modelo para añadirlo a tu perfil.</h4>
                 {addedModelos.map((modelo) =>{
-                  return <span>{modelo} </span>
+                  return <span key = {modelo}>{modelo} </span>
                 })}
-                { loadingModelos ? (<p>Loading</p>) : ( 
+            
                   <div> {modelos.map((modelo) => {
                     return <button onClick={(event)=> addModelos(event, modelo._id, modelo.name)} key={modelo._id}>{modelo.name}</button>})}
                     <button onClick={deleteModelos}>Borrar</button>
                     <button onClick={añadirModelo}>Añadir</button>
-                  </div>)}
+                  </div>
                 </div>
                 <NewModelo show={showNewModelo} onHide={handleCloseModelo} ></NewModelo>
                 <div>
                   <h4>Servicios: Haz click en el servicio para añadirlo a tu perfil.</h4>
                 {addedServicios.map((servicio) =>{
-                  return <span>{servicio} </span>
+                  return <span key={servicio}>{servicio} </span>
                 })}
-                { loadingServicios ? (<p>Loading</p>) : ( 
+               
                   <div> {servicios.map((servicio) => {
                     return <button onClick={(event)=> addServicios(event, servicio._id, servicio.name)} key={servicio._id}>{servicio.name}</button>})}
-                    <button onClick={deleteServicios}>Clear</button>
-                  </div>)}
+                    <button onClick={deleteServicios}>Borrar</button>
+                    <button onClick={añadirServicio}>Añadir</button>
+                  </div>
+                <NewServicio show={showNewServicio} onHide={handleCloseservicio} ></NewServicio>
                 </div>
                 <div>
                   <h4>Áreas de atención: Haz click en el area para añadirla a tu perfil.</h4>
                 {addedAreas.map((area) =>{
-                  return <span>{area} </span>
+                  return <span key={area}>{area} </span>
                 })}
-                { loadingAreas ? (<p>Loading</p>) : ( 
+               
                   <div> {areas.map((area) => {
                     return <button onClick={(event)=> addAreas(event, area._id, area.name)} key={area._id}>{area.name}</button>})}
-                    <button onClick={deleteAreas}>Clear</button>
-                  </div>)}
+                    <button onClick={deleteAreas}>Borrar</button>
+                    <button onClick={añadirArea}>Añadir</button>
+                  </div>
+                <NewArea show={showNewArea} onHide={handleCloseArea} ></NewArea>
                 </div>
                 <button id='submit-button' type="submit" className="btn btn-secondary mt-2">Submit</button>
                

@@ -9,7 +9,7 @@ const serviciosSchema = new Schema({
     trim: true,
   },
   costo: {
-    type: Number
+    type: String
   }
 });
 
