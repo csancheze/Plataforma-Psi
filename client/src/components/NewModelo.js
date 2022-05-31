@@ -30,7 +30,6 @@ const NewModelo= ({show, onHide}) => {
             });
             if (addModelo) {
                 alert("Modelo añadido")
-                onHide()
             }
         } catch (e) {
             alert("Algo no funcionó")
