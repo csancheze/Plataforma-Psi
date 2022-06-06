@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import { ADD_TERAPEUTA } from '../utils/mutations';
 import { useMutation, useQuery } from '@apollo/client';
 import Auth from "../utils/auth";
@@ -21,13 +21,13 @@ const SignUp = () => {
     const [showNewServicio, setShowNewServicio] = useState(false)
     const [showNewArea, setShowNewArea] = useState(false)
 
-    let { loading: loadingModelos, data: dataModelos, refetch: refetchModelos } = useQuery(MODELOS);
-    let { loading: loadingServicios, data: dataServicios , refetch: refetchServicios} = useQuery(SERVICIOS);
-    let { loading: loadingAreas, data: dataAreas, refetch: refetchAreas} = useQuery(AREAS);
+    let { data: dataModelos, refetch: refetchModelos } = useQuery(MODELOS);
+    let { data: dataServicios , refetch: refetchServicios} = useQuery(SERVICIOS);
+    let { data: dataAreas, refetch: refetchAreas} = useQuery(AREAS);
+    const modelos = dataModelos?.modelos || []
+    const servicios = dataServicios?.servicios || []
+    const areas = dataAreas?.areas || []
 
-    let modelos = dataModelos?.modelos || []
-    let servicios = dataServicios?.servicios || []
-    let areas = dataAreas?.areas || []
 
     const addModelos = (event, id, modelo) => {
       event.preventDefault()
@@ -114,7 +114,8 @@ const SignUp = () => {
             areas: formAreas
           },
         });
-        const token = mutationResponse.data.AddTerapeuta.token;
+        console.log(mutationResponse)
+        const token = mutationResponse.data.addTerapeuta.token;
         Auth.login(token);
       } catch (e) {
         alert('Failed to sign up!')

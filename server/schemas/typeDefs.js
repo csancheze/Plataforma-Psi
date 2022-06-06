@@ -124,6 +124,7 @@ const typeDefs = gql`
         updateDia(diaId: ID!, active: Boolean): Dia
         updateHora(horaId: ID!, active: Boolean): Hora
         updateTerapeuta(
+            nombre: String
             correo: String
             cedula: String
             bio: String
@@ -131,6 +132,12 @@ const typeDefs = gql`
             servicios: [ID]
             areas: [ID]
         ): Terapeuta
+        addModeloTerapeuta(modeloId: ID!): Terapeuta
+        addServicioTerapeuta(servicioId: ID!): Terapeuta 
+        addAreaTerapeuta(areaId: ID!): Terapeuta
+        deleteModelo(modeloId: ID!): Terapeuta
+        deleteServicio(servicioId: ID!): Terapeuta 
+        deleteArea(areaId: ID!): Terapeuta
     }
 `
 

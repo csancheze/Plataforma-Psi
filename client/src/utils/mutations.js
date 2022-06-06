@@ -114,8 +114,8 @@ export const ADD_POST = gql `
 `
 
 export const UPDATE_TERAPEUTA = gql `
-    mutation UpdateTerapeuta($correo: String, $cedula: String, $bio: String, $modelos: [ID], $servicios: [ID], $areas: [ID]) {
-        updateTerapeuta(correo: $correo, cedula: $cedula, bio: $bio, modelos: $modelos, servicios: $servicios, areas: $areas) {
+    mutation UpdateTerapeuta( $nombre: String, $correo: String, $cedula: String, $bio: String, $modelos: [ID], $servicios: [ID], $areas: [ID]) {
+        updateTerapeuta(nombre:$nombre, correo: $correo, cedula: $cedula, bio: $bio, modelos: $modelos, servicios: $servicios, areas: $areas) {
             _id
             nombre
         }
@@ -138,6 +138,58 @@ export const UPDATE_HORA = gql `
             _id
             tiempo
             active
+        }
+    }
+
+`
+
+export const ADD_MODELO_TERAPEUTA = gql `
+    mutation addModeloTerapeuta($modeloId: ID!) {
+        addModeloTerapeuta(modeloId: $modeloId) {
+            _id
+        }
+    }
+
+`
+export const ADD_SERVICIO_TERAPEUTA = gql `
+    mutation addServicioTerapeuta($servicioId: ID!) {
+        addServicioTerapeuta(servicioId: $servicioId) {
+            _id
+        }
+    }
+
+`
+export const ADD_AREA_TERAPEUTA = gql `
+    mutation addAreaTerapeuta($areaId: ID!) {
+        addAreaTerapeuta(areaId: $areaId) {
+            _id
+        }
+    }
+
+`
+
+export const DELETE_MODELO= gql `
+    mutation deleteModelo($modeloId: ID!) {
+        deleteModelo(modeloId: $modeloId) {
+            _id
+        }
+    }
+
+`
+
+export const DELETE_SERVICIO = gql `
+    mutation deleteServicio($servicioId: ID!) {
+        deleteServicio(servicioId: $servicioId) {
+            _idnpm 
+        }
+    }
+
+`
+
+export const DELETE_AREA = gql `
+    mutation deleteArea($areaId: ID!) {
+        deleteArea(areaId: $areaId) {
+            _id
         }
     }
 

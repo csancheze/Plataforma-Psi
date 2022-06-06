@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <div>This is a footer</div>
+        <div>Webpage created by <a href="https://www.linkedin.com/in/cesar-san-developer/">César Web Developer</a></div>
     )
 }
 

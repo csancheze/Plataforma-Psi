@@ -135,9 +135,7 @@ const resolvers = {
                         const diaData = await Dia.findByIdAndUpdate(diasData._id, {
                             $push: {horas: horaData}
                         })
-                        console.log(diaData)
                     }
-                    console.log(terapeutaDiadata)
                 }
 
                 return { token: terapeutaToken, user: terapeutaUser, terapeuta: terapeutaData };
@@ -205,6 +203,7 @@ const resolvers = {
         },
         updateTerapeuta: async (parent, args, context) => {
             const terapeutaData = await Terapeuta.findByIdAndUpdate(context.user._id, {
+                nombre: args.nombre,
                 correo: args.correo,
                 cedula: args.cedula,
                 bio: args.bio,
@@ -213,7 +212,45 @@ const resolvers = {
                 areas: args.areas,
             })
             return terapeutaData
-        }
+        },
+        addModeloTerapeuta: async(parent,args,context) => {
+            const terapeutaData = await  Terapeuta.findByIdAndUpdate(context.user._id, {
+                $push: {modelos: args.modeloId}
+            })
+            return terapeutaData
+        },
+        addServicioTerapeuta: async(parent,args,context) => {
+            const terapeutaData = await  Terapeuta.findByIdAndUpdate(context.user._id, {
+                $push: {servicios: args.servicioId}
+            })
+            return terapeutaData
+        },
+        addAreaTerapeuta: async(parent,args,context) => {
+            const terapeutaData = await  Terapeuta.findByIdAndUpdate(context.user._id, {
+                $push: {areas: args.areaId}
+            })
+            return terapeutaData
+        },
+        deleteModelo: async (parent, args, context) => {
+            const user = await Terapeuta.findByIdAndUpdate({ _id: context.user._id }, {
+                $pull: { modelos: args.modeloId }
+            })
+            return {user}
+        },
+        deleteServicio: async (parent, args, context) => {
+            const user = await Terapeuta.findByIdAndUpdate({ _id: context.user._id }, {
+                $pull: { servicios: args.servicioId }
+            })
+            return {user}
+        },
+        deleteArea: async (parent, args, context) => {
+            const user = await Terapeuta.findByIdAndUpdate({ _id: context.user._id }, {
+                $pull: { areas: args.areaId }
+            })
+            return {user}
+        },
+
+
     
     }
 

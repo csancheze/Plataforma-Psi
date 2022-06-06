@@ -27,7 +27,7 @@ const Nav = () => {
     return (
         <header className="w-100 d-flex justify-content-between">
             {( terapeuta.nombre ? (
-                <h1>Psic. {terapeuta.nombre} </h1>
+                <h1>{terapeuta.nombre} </h1>
             ) : (
                 <h1>Plataforma-Psi</h1>
             ))}
@@ -36,7 +36,7 @@ const Nav = () => {
                 {/* <li className="nav-item">
                     <NavLink to="/" className={currentPage === 'Home' ? 'nav-link active' : 'nav-link'} onClick={() => { handlePageChange('Home'); }}>Home</NavLink>
                 </li> */}
-                { terapeuta == "none" ? ("") : ( 
+                { terapeuta === "none" ? ("") : ( 
                 <li className="nav-item">
                     <NavLink to={`/terapeuta/${terapeuta._id}`}className={currentPage === 'MiPagina' ? 'nav-link active' : 'nav-link'}
                     onClick={() => { handlePageChange('MiPagina'); }}>Mi Pagina</NavLink>
