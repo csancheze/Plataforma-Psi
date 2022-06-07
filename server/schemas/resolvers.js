@@ -30,7 +30,18 @@ const resolvers = {
                         .populate('areas')
                         .populate('posts')
                         .populate('pacientes')
-                        .populate('dias')
+                        .populate('formacion')
+                        
+                    return { user: userData, terapeuta: terapeutaData };
+                default:
+                    console.log(`Sorry, we are out of profiles`);
+            };
+
+        },
+
+        terapeutaHorarios: async (parent, args, context) => {
+            const terapeutaData = await Terapeuta.findOne({ _id: context.user._id })
+                        .select('-__v -password')
                         .populate([{
                             path: 'dias',
                             populate: {
@@ -39,11 +50,7 @@ const resolvers = {
                             }
                         }])
                         
-                    return { user: userData, terapeuta: terapeutaData };
-                default:
-                    console.log(`Sorry, we are out of profiles`);
-            };
-
+                    return {terapeuta: terapeutaData };
         },
         terapeuta: async (parent, args, context) => {
             const terapeutaData = await Terapeuta.findById(args._id)
@@ -53,6 +60,7 @@ const resolvers = {
                 .populate('areas')
                 .populate('posts')
                 .populate('dias')
+                .populate('formacion')
                 .populate([{
                     path: 'dias',
                     populate: {
@@ -118,8 +126,10 @@ const resolvers = {
                 const terapeutaData = await Terapeuta.create({
                     _id: terapeutaUser._id,
                     nombre: args.nombre,
+                    titulo: args.titulo,
                     correo: args.correo,
                     cedula: args.cedula,
+                    foto: args.foto,
                     bio: args.bio,
                     modelos: args.modelos,
                     servicios: args.servicios,
@@ -204,8 +214,10 @@ const resolvers = {
         updateTerapeuta: async (parent, args, context) => {
             const terapeutaData = await Terapeuta.findByIdAndUpdate(context.user._id, {
                 nombre: args.nombre,
+                titulo: args.titulo,
                 correo: args.correo,
                 cedula: args.cedula,
+                foto: args.foto,
                 bio: args.bio,
                 modelos: args.modelos,
                 servicios: args.servicios,

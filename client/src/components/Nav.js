@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import React, {useState} from "react";
-import { useParams, NavLink } from "react-router-dom";
+import {NavLink } from "react-router-dom";
 import { QUERY_ME_TERAPEUTA, TERAPEUTA } from "../utils/queries";
 import Auth from ".//../utils/auth";
 
@@ -8,35 +8,38 @@ import Auth from ".//../utils/auth";
 const Nav = () => {
     const [currentPage, setCurrentPage] = useState('Home');
     const handlePageChange = (page) => setCurrentPage(page);
-    const { terapeutaId } = useParams()
+    const url = window.location.href.split("/")
+    const terapeutaId = url.pop()
+    let check = false
+    if (terapeutaId.length === 24) {
+        check = true
+    }
+    
 
-    const {loading, data} = useQuery(
-        terapeutaId ? TERAPEUTA : QUERY_ME_TERAPEUTA, {
-            variables: {_id: terapeutaId}
+    const { loading, data} = useQuery(
+        check ? TERAPEUTA : QUERY_ME_TERAPEUTA, {
+            variables: {id: terapeutaId},
         }
     );
 
-    const terapeuta = data?.me.terapeuta || data?.terapeuta || "none";
+    const terapeuta = data?.terapeuta || data?.me.terapeuta || {}
 
 
     if (loading) {
         return <div>Loading...</div>
     }
-
-
+    
     return (
         <header className="w-100 d-flex justify-content-between">
-            {( terapeuta.nombre ? (
-                <h1>{terapeuta.nombre} </h1>
-            ) : (
-                <h1>Plataforma-Psi</h1>
-            ))}
+            {!terapeuta.nombre ? (<h1>Plataforma Psi</h1>) : ( <h1>{terapeuta.nombre}</h1>) }
+           
+
             <nav>
             <ul className="nav justify-content-end">
                 {/* <li className="nav-item">
                     <NavLink to="/" className={currentPage === 'Home' ? 'nav-link active' : 'nav-link'} onClick={() => { handlePageChange('Home'); }}>Home</NavLink>
                 </li> */}
-                { terapeuta === "none" ? ("") : ( 
+                { !Auth.loggedIn() ? ("") : ( 
                 <li className="nav-item">
                     <NavLink to={`/terapeuta/${terapeuta._id}`}className={currentPage === 'MiPagina' ? 'nav-link active' : 'nav-link'}
                     onClick={() => { handlePageChange('MiPagina'); }}>Mi Pagina</NavLink>

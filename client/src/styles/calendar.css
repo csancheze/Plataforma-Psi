@@ -1,0 +1,22 @@
+.calendar {
+    overflow-x: auto;
+    max-width: 100vw;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.calendar-button {
+    width:100%;
+}
+
+li {
+    padding: 1px;
+    width: 80px;
+    font-size: small;
+}
+
+.text-date {
+    height: 4em
+}

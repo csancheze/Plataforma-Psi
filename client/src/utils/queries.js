@@ -10,9 +10,12 @@ export const QUERY_ME_TERAPEUTA = gql`
             _id
             }
             terapeuta {
+            _id
             nombre
+            titulo
             correo
             cedula
+            foto
             bio
             modelos {
                 _id
@@ -42,15 +45,10 @@ export const QUERY_ME_TERAPEUTA = gql`
                 correo
                 notas
             }
-            dias {
+            formacion {
                 _id
-                name
-                horas {
-                active
-                _id
-                tiempo
-                }
-                active
+                titulo
+                imagen
             }
             }
         } 
@@ -73,13 +71,34 @@ export const QUERY_ME_PACIENTE = gql `
             }
         }
 }
+` 
+export const QUERY_ME_HORARIOS = gql `
+    query TerapeutaHorarios {
+        terapeutaHorarios {
+                terapeuta {
+                    dias {
+                        _id
+                        name
+                        horas {
+                            _id
+                            tiempo
+                            active
+                        }
+                        active
+                    }
+            }
+    }
+}
 `
 export const TERAPEUTA = gql `
     query Terapeuta($id: ID!) {
-        terapeuta(_id: $id) {
+    terapeuta(_id: $id) {
+            _id
             nombre
+            titulo
             correo
             cedula
+            foto
             bio
             modelos {
             _id
@@ -112,6 +131,11 @@ export const TERAPEUTA = gql `
                 active
             }
             active
+            }
+            formacion {
+                _id
+                titulo
+                imagen
             }
         }
     }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, {useState } from "react";
 import { ADD_TERAPEUTA } from '../utils/mutations';
 import { useMutation, useQuery } from '@apollo/client';
 import Auth from "../utils/auth";
@@ -31,6 +31,9 @@ const SignUp = () => {
 
     const addModelos = (event, id, modelo) => {
       event.preventDefault()
+      if (formModelos.includes(id)) {
+        return console.log("already in array")
+      }
       setFormModelos([...formModelos, id])
       setAddedModelos([...addedModelos, modelo])
     }
@@ -43,6 +46,9 @@ const SignUp = () => {
 
     const addServicios = (event, id, servicio) => {
       event.preventDefault()
+      if (formServicios.includes(id)) {
+        return console.log("already in array")
+      }
       setFormServicios([...formServicios, id])
       setAddedServicios([...addedServicios, servicio])
     }
@@ -55,6 +61,9 @@ const SignUp = () => {
 
     const addAreas = (event, id, area) => {
       event.preventDefault()
+      if (formAreas.includes(id)) {
+        return console.log("already in array")
+      }
       setFormAreas([...formAreas, id])
       setAddedAreas([...addedAreas, area])
     }
@@ -106,8 +115,10 @@ const SignUp = () => {
             username: formState.username,
             role: "Terapeuta",
             nombre: formState.nombre,
+            titulo: formState.titulo,
             correo: formState.correo,
             cedula: formState.cedula,
+            foto: formState.foto,
             bio: formState.bio,
             modelos: formModelos,
             servicios: formServicios,
@@ -180,6 +191,17 @@ const SignUp = () => {
                     placeholder="Psic. Nombre Apellido"
                     onChange={handleChange} />
                 </div>
+                <div className="form-group mt-2">
+                    <label htmlFor="exampleFormControlInput8">Título</label>
+                    <input 
+                    type="text" 
+                    name="titulo" 
+                    required 
+                    className="form-control" 
+                    id="exampleFormControlInpu8" 
+                    placeholder="Psicoterapeuta Cognitivo Conductual ó Maestro en Terapia Humanista"
+                    onChange={handleChange} />
+                </div>
                 <div className="form-group">
                     <label htmlFor="exampleFormControlInput5">Correo electrónico de contacto</label>
                     <input 
@@ -189,6 +211,28 @@ const SignUp = () => {
                     className="form-control" 
                     id="exampleFormControlInput5" 
                     placeholder="nombre@ejemplo.com"
+                    onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="exampleFormControlInput7">Cédula</label>
+                    <input 
+                    type="text" 
+                    name='cedula' 
+                    required 
+                    className="form-control" 
+                    id="exampleFormControlInput7" 
+                    placeholder="1234678"
+                    onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="exampleFormControlInput9">Link para foto de perfil</label>
+                    <input 
+                    type="url" 
+                    name='photo' 
+                    required 
+                    className="form-control" 
+                    id="exampleFormControlInput9" 
+                    placeholder="https://drive.google.com/file/d/12345/view?usp=sharing"
                     onChange={handleChange} />
                 </div>
                 <div className="form-group mt-2">
@@ -204,41 +248,46 @@ const SignUp = () => {
                 </div>
                 <div>
                   <h4>Modelos Terapéuticos: Haz click en el modelo para añadirlo a tu perfil.</h4>
+                  <div> {modelos.map((modelo) => {
+                    return <button onClick={(event)=> addModelos(event, modelo._id, modelo.name)} key={modelo._id}>{modelo.name}</button>})}
+                    <button onClick={añadirModelo}>Añadir</button>
+                  </div>
+                </div>                
                 {addedModelos.map((modelo) =>{
                   return <span key = {modelo}>{modelo} </span>
                 })}
+                { addedModelos.length > 0 ? (<button onClick={deleteModelos}>Borrar</button>) : ("")}
             
-                  <div> {modelos.map((modelo) => {
-                    return <button onClick={(event)=> addModelos(event, modelo._id, modelo.name)} key={modelo._id}>{modelo.name}</button>})}
-                    <button onClick={deleteModelos}>Borrar</button>
-                    <button onClick={añadirModelo}>Añadir</button>
-                  </div>
-                </div>
+
                 <NewModelo show={showNewModelo} onHide={handleCloseModelo} ></NewModelo>
                 <div>
                   <h4>Servicios: Haz click en el servicio para añadirlo a tu perfil.</h4>
-                {addedServicios.map((servicio) =>{
-                  return <span key={servicio}>{servicio} </span>
-                })}
-               
                   <div> {servicios.map((servicio) => {
                     return <button onClick={(event)=> addServicios(event, servicio._id, servicio.name)} key={servicio._id}>{servicio.name}</button>})}
-                    <button onClick={deleteServicios}>Borrar</button>
                     <button onClick={añadirServicio}>Añadir</button>
-                  </div>
+                  </div>                
+                  {addedServicios.map((servicio) =>{
+                  return <span key={servicio}>{servicio} </span>
+                })}
+                { addedServicios.length > 0 ? (<button onClick={deleteServicios}>Borrar</button>) : ("")}
+               
+
                 <NewServicio show={showNewServicio} onHide={handleCloseservicio} ></NewServicio>
                 </div>
                 <div>
                   <h4>Áreas de atención: Haz click en el area para añadirla a tu perfil.</h4>
-                {addedAreas.map((area) =>{
+                   <div> {areas.map((area) => {
+                    return <button onClick={(event)=> addAreas(event, area._id, area.name)} key={area._id}>{area.name}</button>})}
+                    
+                    <button onClick={añadirArea}>Añadir</button>
+                  </div>               
+                  {addedAreas.map((area) =>{
                   return <span key={area}>{area} </span>
                 })}
+                { addedAreas.length > 0 ? (<button onClick={deleteAreas}>Borrar</button>) : ("")}
+                
                
-                  <div> {areas.map((area) => {
-                    return <button onClick={(event)=> addAreas(event, area._id, area.name)} key={area._id}>{area.name}</button>})}
-                    <button onClick={deleteAreas}>Borrar</button>
-                    <button onClick={añadirArea}>Añadir</button>
-                  </div>
+
                 <NewArea show={showNewArea} onHide={handleCloseArea} ></NewArea>
                 </div>
                 <button id='submit-button' type="submit" className="btn btn-secondary mt-2">Submit</button>

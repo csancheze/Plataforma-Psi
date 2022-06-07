@@ -7,6 +7,7 @@ import NewModelo from "../components/NewModelo";
 import NewServicio from "../components/NewServicio";
 import NewArea from "../components/NewArea";
 import { QUERY_ME_TERAPEUTA } from "../utils/queries";
+import CalendarWidget from "../components/Calendar";
 
 const Perfil = () => {
         const [formState, setFormState] = useState({});
@@ -33,6 +34,19 @@ const Perfil = () => {
         const [showNewModelo, setShowNewModelo] = useState(false)
         const [showNewServicio, setShowNewServicio] = useState(false)
         const [showNewArea, setShowNewArea] = useState(false)
+        const [showCalendar, setShowCalendar] = useState("visually-hidden")
+
+        const imagelink = terapeuta?.foto || ""
+        const imageId = imagelink.split("/")[5]
+    
+        const styles = {
+            imgbox: {
+                width: "200px",
+                height: "200px"
+            }
+    
+        }
+    
     
         useEffect(()=>{
           setModelos(dataModelos?.modelos || [])
@@ -187,8 +201,10 @@ const Perfil = () => {
             const mutationResponse = await UpdateTerapeuta({
               variables: {
                 nombre: formState.nombre,
+                titulo: formState.titulo,
                 correo: formState.correo,
                 cedula: formState.cedula,
+                foto: formState.foto,
                 bio: formState.bio,
               },
             });
@@ -209,7 +225,17 @@ const Perfil = () => {
           });
         };
 
-        if (Auth.loggedIn() == false) {
+        const calendarShow = (event) => {
+          event.preventDefault()
+          setShowCalendar("")
+        }
+
+        const calendarHide = (event) => {
+          event.preventDefault()
+          setShowCalendar("visually-hidden")
+        }
+
+        if (Auth.loggedIn() === false) {
           window.location.replace("/")
         }
         
@@ -220,6 +246,17 @@ const Perfil = () => {
     
         return (
             <main>
+              { showCalendar === "visually-hidden" ? (
+              <button onClick={calendarShow}>Modificar horarios disponibles</button>) : (
+                <button onClick={calendarHide}>Cerrar</button>
+              )}
+              
+               <CalendarWidget 
+                show={showCalendar} 
+                ></CalendarWidget>
+                           <div style={styles.imgbox}>
+            <img className ="img-thumbnail img-fluid" src={`https://drive.google.com/uc?export=view&id=${imageId}`} alt="Foto de perfil"></img>
+            </div>
                   <form  onSubmit={handleFormSubmit} className="border rounded-3 p-3">
                     <div className="form-group mt-2">
                         <label htmlFor="exampleFormControlInput4">Nombre para mostrar</label>
@@ -232,6 +269,17 @@ const Perfil = () => {
                         defaultValue={terapeuta.nombre}
                         onChange={handleChange} />
                     </div>
+                    <div className="form-group mt-2">
+                      <label htmlFor="exampleFormControlInput8">Título</label>
+                      <input 
+                      type="text" 
+                      name="titulo" 
+                      required 
+                      className="form-control" 
+                      id="exampleFormControlInpu8" 
+                      defaultValue={terapeuta.titulo}
+                      onChange={handleChange} />
+                    </div>
                     <div className="form-group">
                         <label htmlFor="exampleFormControlInput5">Correo electrónico de contacto</label>
                         <input 
@@ -242,6 +290,28 @@ const Perfil = () => {
                         id="exampleFormControlInput5" 
                         defaultValue = {terapeuta.correo}
                         onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                    <label htmlFor="exampleFormControlInput7">Cédula</label>
+                    <input 
+                    type="text" 
+                    name='cedula' 
+                    required 
+                    className="form-control" 
+                    id="exampleFormControlInput7" 
+                    defaultValue={terapeuta.cedula}
+                    onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                    <label htmlFor="exampleFormControlInput9">Link para foto de perfil</label>
+                    <input 
+                    type="url" 
+                    name='foto' 
+                    required 
+                    className="form-control" 
+                    id="exampleFormControlInput9" 
+                    defaultValue={terapeuta.foto}
+                    onChange={handleChange} />
                     </div>
                     <div className="form-group mt-2">
                         <label htmlFor="exampleFormControlInput6">Sobre ti</label>
@@ -256,8 +326,12 @@ const Perfil = () => {
                     </div> 
                     <button id='submit-button' type="submit" className="btn btn-secondary mt-2">Actualizar</button>
                     <div>
-                      <h4>Modelos Terapéuticos: Haz click en el modelo para añadirlo a tu perfil.</h4>
-
+                      <h4>Modelos Terapéuticos: </h4>
+                      <div> {modelos.map((modelo) => {
+                        return <button onClick={(event)=> addModelo(event, modelo._id)} key={modelo._id}>{modelo.name}</button>})}
+                        <button onClick={añadirModelo}>Agregar otro modelo</button>
+                      </div>
+                    </div>
                     
                       {terapeuta.modelos.map((modelo) =>{
                       return <div>
@@ -266,40 +340,36 @@ const Perfil = () => {
                         </div>})}
                     
                     
-                      <div> {modelos.map((modelo) => {
-                        return <button onClick={(event)=> addModelo(event, modelo._id)} key={modelo._id}>{modelo.name}</button>})}
-                        <button onClick={añadirModelo}>Añadir</button>
-                      </div>
-                    </div>
+
                     <NewModelo show={showNewModelo} onHide={handleCloseModelo} ></NewModelo>
                     <div>
-                      <h4>Servicios: Haz click en el servicio para añadirlo a tu perfil.</h4>
-         
+                      <h4>Servicios: </h4>
+                      <div> {servicios.map((servicio) => {
+                        return <button onClick={(event)=> addServicio(event, servicio._id)} key={servicio._id}>{servicio.name}</button>})}
+                        <button onClick={añadirServicio}>Agregar otro servicio</button>
+                      </div>         
                   
                       {terapeuta.servicios.map((servicio) =>{
                       return <div> 
                         <span key = {servicio._id}>{servicio.name}</span>
                         <button onClick={(event) => quitarServicio(event, servicio._id)}>x</button></div>})}
                       
-                      <div> {servicios.map((servicio) => {
-                        return <button onClick={(event)=> addServicio(event, servicio._id)} key={servicio._id}>{servicio.name}</button>})}
-                        <button onClick={añadirServicio}>Añadir</button>
-                      </div>
+
                     <NewServicio show={showNewServicio} onHide={handleCloseservicio} ></NewServicio>
                     </div>
                     <div>
-                    <h4>Áreas de atención: Haz click en el área para añadirla a tu perfil.</h4>
-                    
+                    <h4>Áreas de atención: </h4>
+                      <div> {areas.map((area) => {
+                        return <button onClick={(event)=> addArea(event, area._id)} key={area._id}>{area.name}</button>})}
+                        <button onClick={añadirArea}>Agregar otra área de atención.</button>
+                      </div>                    
                     
                       {terapeuta.areas.map((area) =>{
                       return <div>
                         <span key = {area._id}>{area.name} </span>
                         <button onClick={(event) => quitarArea(event, area._id)}>x</button></div>})}
 
-                      <div> {areas.map((area) => {
-                        return <button onClick={(event)=> addArea(event, area._id)} key={area._id}>{area.name}</button>})}
-                        <button onClick={añadirArea}>Añadir</button>
-                      </div>
+
                     <NewArea show={showNewArea} onHide={handleCloseArea} ></NewArea>
                     </div>
                    

@@ -11,11 +11,17 @@ const terapeutaSchema = new Schema({
   nombre: {
     type: String,
   },
+  titulo: {
+    type: String,
+  },
   correo: {
     type: String,
     match: [/.+@.+\..+/, 'Must match an email address!'],
   },
   cedula: {
+    type: String,
+  },
+  foto: {
     type: String,
   },
   bio: {
@@ -36,6 +42,12 @@ const terapeutaSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: 'Areas'
+    }
+  ],
+  formacion: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Diplomas'
     }
   ],
   posts: [

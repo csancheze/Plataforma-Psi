@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client';
 
 const Home = () => {
     const [formState, setFormState] = useState({ email: '', password: '' });
-    const [login, { error, data }] = useMutation(LOGIN_TERAPEUTA)
+    const [login] = useMutation(LOGIN_TERAPEUTA)
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -20,7 +20,6 @@ const Home = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        console.log(formState);
         try {
           const { data } = await login({
             variables: { ...formState },
@@ -29,6 +28,7 @@ const Home = () => {
           Auth.login(data.login.token);
         } catch (e) {
           console.error(e);
+          alert("Credenciales equivocadas. Intentalo de nuevo.")
         }
         setFormState({
           email: '',

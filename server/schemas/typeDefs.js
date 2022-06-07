@@ -27,12 +27,15 @@ const typeDefs = gql`
     type Terapeuta {
         _id: ID
         nombre: String
+        titulo: String
         correo: String
         cedula: String
+        foto: String
         bio: String
         modelos: [Modelos]
         servicios: [Servicios]
         areas: [Areas]
+        formacion: [Diplomas]
         posts: [Posts]
         pacientes: [Paciente]
         dias: [Dia]
@@ -44,7 +47,13 @@ const typeDefs = gql`
         correo: String
         notas: [String]
     }
-    
+
+    type Diplomas {
+        _id: ID
+        titulo: String!
+        imagen: String
+    }
+
     type Modelos {
         _id: ID
         name: String!
@@ -90,6 +99,7 @@ const typeDefs = gql`
         areas: [Areas]
         servicios: [Servicios]
         modelos: [Modelos]
+        terapeutaHorarios: Profile
     }
 
     type Mutation {
@@ -108,8 +118,10 @@ const typeDefs = gql`
             password: String!
             role: String!
             nombre: String
+            titulo: String
             correo: String
             cedula: String
+            foto: String
             bio: String
             modelos: [ID]
             servicios: [ID]
@@ -125,8 +137,10 @@ const typeDefs = gql`
         updateHora(horaId: ID!, active: Boolean): Hora
         updateTerapeuta(
             nombre: String
+            titulo: String
             correo: String
             cedula: String
+            foto: String
             bio: String
             modelos: [ID]
             servicios: [ID]
