@@ -145,7 +145,7 @@ const SignUp = () => {
     
 
     return (
-        <div>
+        <main>
               <form  onSubmit={handleFormSubmit} className="border rounded-3 p-3">
                 <div className="form-group">
                     <label htmlFor="exampleFormControlInput1">Correo electrónico de cuenta</label>
@@ -293,7 +293,7 @@ const SignUp = () => {
                 <button id='submit-button' type="submit" className="btn btn-secondary mt-2">Submit</button>
                
             </form>
-        </div>
+        </main>
     )
 }
 

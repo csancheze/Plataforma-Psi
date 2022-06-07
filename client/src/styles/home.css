@@ -1,0 +1,40 @@
+:root {
+--razzmic-berry: #8a4f7dff;
+--pink-lace: #fcddf2ff;
+--laurel-green: #b6c8a9ff;
+--aero-blue: #c8ead3ff;
+--aero-blue-2: #cfffe5ff;
+--light-slate-gray: #7293a0ff;
+--nyanza: #e5ffdeff;
+--xiketic: #170f11ff;
+}
+
+main {
+    background-color: var(--light-slate-gray);
+    width: 100%;
+    min-height: 100vh;
+}
+
+.btn-submit {
+  margin-top: 20px;
+  background-color: var(--laurel-green);
+}
+
+.btn-text {
+    font-size: 1.5em;
+    color: var(--xiketic);
+}
+
+.crea {
+    color:  var(--nyanza);
+    text-decoration: none;
+}
+
+.titulo {
+    color: var(--nyanza)
+}
+
+label {
+    font-size: 1.5em;
+    color: var(--nyanza)
+}

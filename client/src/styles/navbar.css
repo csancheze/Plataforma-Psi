@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Charis+SIL&display=swap');
+
+:root {
+--razzmic-berry: #8a4f7dff;
+--pink-lace: #fcddf2ff;
+--laurel-green: #b6c8a9ff;
+--aero-blue: #c8ead3ff;
+--aero-blue-2: #cfffe5ff;
+--light-slate-gray: #7293a0ff;
+--nyanza: #e5ffdeff;
+--xiketic: #170f11ff;
+--my-font: 'Charis SIL', serif;
+}
+
+* {
+    font-family: var(--my-font);    
+}
+
+body {
+    background-color: var(--pink-lace);
+}
+
+.nav-item {
+    text-align: center;
+    width: auto;
+    color: var(--xiketic);
+    font-size: medium;
+    padding: 0.6em;
+
+    border-left: var(--pink-lace) 1px solid;
+    margin: 0;
+    height: 70px;
+
+}
+
+.header {
+    background-color: var(--razzmic-berry);
+    color: var(--pink-lace);
+}
+
+.header-title {
+    padding-left: 1.5em;
+}
+
+.color-text {
+    color: var(--pink-lace)
+}

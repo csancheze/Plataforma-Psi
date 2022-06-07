@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {NavLink } from "react-router-dom";
 import { QUERY_ME_TERAPEUTA, TERAPEUTA } from "../utils/queries";
 import Auth from ".//../utils/auth";
+import "../styles/navbar.css"
 
 
 const Nav = () => {
@@ -30,31 +31,31 @@ const Nav = () => {
     }
     
     return (
-        <header className="w-100 d-flex justify-content-between">
-            {!terapeuta.nombre ? (<h1>Plataforma Psi</h1>) : ( <h1>{terapeuta.nombre}</h1>) }
+        <header className="header w-100 d-flex flex-column flex-sm-row justify-content-start justify-content-sm-between">
+            <h1 className="header-title pt-2">{!terapeuta.nombre ? ("Plataforma Psi") : (`${terapeuta.nombre}`)}</h1>
            
 
             <nav>
-            <ul className="nav justify-content-end">
+            <ul className="nav justify-content-around">
                 {/* <li className="nav-item">
                     <NavLink to="/" className={currentPage === 'Home' ? 'nav-link active' : 'nav-link'} onClick={() => { handlePageChange('Home'); }}>Home</NavLink>
                 </li> */}
                 { !Auth.loggedIn() ? ("") : ( 
                 <li className="nav-item">
                     <NavLink to={`/terapeuta/${terapeuta._id}`}className={currentPage === 'MiPagina' ? 'nav-link active' : 'nav-link'}
-                    onClick={() => { handlePageChange('MiPagina'); }}>Mi Pagina</NavLink>
+                    onClick={() => { handlePageChange('MiPagina'); }}><span className="color-text">Mi Pagina</span></NavLink>
                 </li>)}
                 { Auth.loggedIn() ? (  
                 <li className="nav-item">
                     <NavLink to={`/perfil`} className={currentPage === 'Perfil' ? 'nav-link active' : 'nav-link'}
-                    onClick={() => { handlePageChange('Perfil');  }}>Perfil</NavLink>
+                    onClick={() => { handlePageChange('Perfil');  }}><span className="color-text">Perfil</span></NavLink>
                 </li>) : ("")}
                 { Auth.loggedIn() ? (
                 <li className="nav-item">
-                    <NavLink to="/" className="nav-link active" onClick={() => Auth.logout()}>Salir</NavLink>
+                    <NavLink to="/" className="nav-link active" onClick={() => Auth.logout()}><span className="color-text">Salir</span></NavLink>
                 </li>):(
                 <li className="nav-item">
-                    <NavLink to="/" className="nav-link active">Entra</NavLink>
+                    <NavLink to="/" className="nav-link active"><span className="color-text">Entrar</span></NavLink>
                 </li>
                 )}
                 
