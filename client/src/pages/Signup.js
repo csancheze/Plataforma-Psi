@@ -7,6 +7,7 @@ import NewModelo from "../components/NewModelo";
 import NewServicio from "../components/NewServicio";
 import NewArea from "../components/NewArea";
 import "../styles/signup.css"
+import UseGoogleDrive from "../components/UseGoogleDrive"
 
 
 const SignUp = () => {
@@ -21,6 +22,7 @@ const SignUp = () => {
     const [showNewModelo, setShowNewModelo] = useState(false)
     const [showNewServicio, setShowNewServicio] = useState(false)
     const [showNewArea, setShowNewArea] = useState(false)
+    const [showGoogle, setShowGoogle] = useState(false)
 
     let { data: dataModelos, refetch: refetchModelos } = useQuery(MODELOS);
     let { data: dataServicios , refetch: refetchServicios} = useQuery(SERVICIOS);
@@ -104,6 +106,17 @@ const SignUp = () => {
       refetchAreas()
       setShowNewArea(false);
     }
+
+    const showGoogleButton = (event) => {
+      event.preventDefault()
+      setShowGoogle(true)
+    }
+
+    const handleCloseGoogle = (event) => {
+      event.preventDefault()
+      setShowGoogle(false);
+    }
+
 
   
     const handleFormSubmit = async (event) => {
@@ -226,12 +239,20 @@ const SignUp = () => {
                     onChange={handleChange} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlInput9">Link para foto de perfil</label>
+                    <label htmlFor="exampleFormControlInput9">Link para <span className="tooltip3 p-0">foto 
+                        <span className="tooltiptext">Para mejor resultado elige una imagen de 200 x 200 px.
+                        </span>
+                      </span> de perfil 
+                        <button onClick={showGoogleButton} className="button-question">?
+
+                        </button>
+                        <UseGoogleDrive show={showGoogle} onHide={handleCloseGoogle}></UseGoogleDrive>
+                    </label>
                     <input 
                     type="url" 
                     name='photo' 
                     required 
-                    className="form-control" 
+                    className="form-control mt-2" 
                     id="exampleFormControlInput9" 
                     placeholder="https://drive.google.com/file/d/12345/view?usp=sharing"
                     onChange={handleChange} />
@@ -289,7 +310,7 @@ const SignUp = () => {
 
                 <div className="div-container rounded mt-3 p-2">
                   <h4 className="tooltip3">Áreas de atención
-                    <span className="tooltiptext">Haz click en el modelo para añadirlo a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span>
+                    <span className="tooltiptext">Haz click en el área para añadirla a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span>
                   </h4>
                    <div className="button-container rounded mt-3 p-1"> 
                      {areas.map((area) => {

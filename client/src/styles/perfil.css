@@ -1,0 +1,44 @@
+.img-card-title {
+    color: var(--white)
+}
+
+.profile-image {
+    max-width: 200px;
+    max-height: 200px
+}
+
+.button-close {
+    color: var(--white);
+    background-color: var(--dark);
+    border: 0px;
+    font-size: 0.7em;
+    vertical-align: super;
+}
+
+.selection-perfil{
+    padding: 5px;
+    height: 100%;
+    border-left: 1px solid;
+}
+
+.show-calendar-container {
+    width: 70%
+
+}
+
+.show-calendar-button {
+    color:  var(--white);
+    text-decoration: none;
+    background-color: var(--main);
+    width: 100%;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 5px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+}
+
+@media screen and (max-width: 40rem) {
+
+    .show-calendar-container {
+        width: 100%;
+    }
+}

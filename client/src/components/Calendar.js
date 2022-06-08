@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../styles/calendar.css"
-import { Container } from "react-bootstrap"
 import { useMutation, useQuery} from "@apollo/client";
 import { UPDATE_DIA, UPDATE_HORA } from "../utils/mutations";
 import { QUERY_ME_HORARIOS } from "../utils/queries";
@@ -14,12 +13,23 @@ const CalendarWidget= ({show}) => {
     const [updateDia] = useMutation(UPDATE_DIA);
     const [updateHora] = useMutation(UPDATE_HORA)
 
+    const [showInstructions, setShowInstructions] = useState("visually-hidden")
+
+    const closeInstructions = (event) => {
+        event.preventDefault()
+        if (showInstructions == "visually-hidden") {
+            setShowInstructions("")  
+        } else {
+        setShowInstructions("visually-hidden")
+        }
+    }
+
 
     const buttonActive = (status) => {
         if (status === true) {
-            return "btn-primary"
+            return "is-active"
         } else {
-            return "btn-light"
+            return "not-active"
         }
     }
 
@@ -59,14 +69,32 @@ const CalendarWidget= ({show}) => {
         return <div>Loading...</div>
     }
     return (
-        <div className={`d-flex flex-row calendar ${show}`} >
-            {semana.map((dia) => {
-              return <ul key={dia.name}><li><button className = {`btn ${buttonActive(dia.active)} calendar-button`} onClick={(event)=> activateDia(event, dia._id, dia.active)}>{dia.name}</button></li>
-              {dia.horas.map((hora) => {
-                  return <li key={dia.name +" "+ hora._id}><button onClick={(event)=> activateHora(event, hora._id, hora.active)} type="button" className = {`btn ${buttonActive(hora.active)} calendar-button`}>{hora.tiempo}</button></li>})}
-              </ul>})
-            }
-            
+        <div className={`w-100 d-flex ${show}  flex-column mt-2`}>
+              <button className="button-instructions text-center border rounded p-2" onClick={closeInstructions}>Instrucciones</button>
+        
+        <div className={`instructions ${showInstructions}`}>      
+          
+          <h2 className="titulo text-center">Cómo usar el horario</h2>
+          <ol>
+              <li>Haz click sobre el dia para activar o desactivar.</li>
+              <li>El día está activado cuando el fondo aparecer de <span className="dia is-active rounded p-1">color</span>. Si el día está desactivado, así aparecerá en tu página.</li>
+              <li>Haz click sobre la hora para activar o desactivar.</li>
+              <li>La hora está activada cuando el fondo aparecer de <span className="hora is-active rounded p-1">color</span>. Si la hora está desactivada, así aparecerá en tu página.</li>
+          </ol>
+          </div>
+
+     
+            <div className={`d-flex calendar justify-content-between rounded border p-2`} >
+          
+
+                {semana.map((dia) => {
+                return <ul className= "d-flex flex-column p-0 calendar-column" key={dia.name}><li className="calendar-li mb-2"><button className = {`dia ${buttonActive(dia.active)} rounded calendar-button`} onClick={(event)=> activateDia(event, dia._id, dia.active)}>{dia.name}</button></li>
+                {dia.horas.map((hora) => {
+                    return <li className="calendar-li"  key={dia.name +" "+ hora._id}><button  onClick={(event)=> activateHora(event, hora._id, hora.active)} type="button" className = {` ${buttonActive(hora.active)} rounded border hora calendar-button`}>{hora.tiempo}</button></li>})}
+                </ul>})
+                }
+                
+            </div>
         </div>
     )
 }

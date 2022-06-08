@@ -64,7 +64,7 @@
       white-space: nowrap;
   }
    .borrar {
-       background-color: var(--secondary);
+       background-color: var(--dark);
        border: solid 1px var(--white);
        color: var(--white);
        border-top-left-radius: 0%;
@@ -78,6 +78,14 @@
        padding: 6px;
        height: 100%;
 
+   }
+
+   .button-question {
+       color: var(--white);
+       background-color: var(--terciary);
+       border: 0px;
+       font-size: 0.7em;
+       vertical-align: super;
    }
 
 ::-webkit-scrollbar {

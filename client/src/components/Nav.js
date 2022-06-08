@@ -36,7 +36,7 @@ const Nav = () => {
            
 
             <nav>
-            <ul className="nav justify-content-around">
+            <ul className="nav d-flex flex-column flex-md-row justify-content-around">
                 {/* <li className="nav-item">
                     <NavLink to="/" className={currentPage === 'Home' ? 'nav-link active' : 'nav-link'} onClick={() => { handlePageChange('Home'); }}>Home</NavLink>
                 </li> */}

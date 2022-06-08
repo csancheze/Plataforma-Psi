@@ -1,22 +1,87 @@
 .calendar {
     overflow-x: auto;
-    max-width: 100vw;
+    overflow-y: hidden;
+    margin: 15px auto;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 5px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    width: 70%;
+    background-color: var(--terciary);
+ 
+
 }
 
-ul {
+.calendar-column{
     list-style-type: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: var(--terciary);
 }
 
 .calendar-button {
     width:100%;
+    color: var(--dark);
+    background-color: var(--secondary);
 }
 
-li {
+.calendar-li {
     padding: 1px;
-    width: 80px;
-    font-size: small;
+    height: 1.5em;
+    margin: 2px;
+    width: 100%;
 }
 
 .text-date {
     height: 4em
+}
+
+.hora{
+    font-size: 15px;
+    padding: 0.5px;
+
+}
+
+.is-active {
+    background-color: var(--main);
+    color: var(--white);
+    font-weight: normal;
+    border: 1px solid var(--white)
+}
+
+.not-active {
+    background-color: var(--white);
+    border: 1px
+}
+
+
+.instructions {
+    padding: 10px;
+    width: 70%;
+    margin: auto;
+    box-shadow: rgb(44, 89, 97) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -2px -2px 3px 1px inset;
+}
+
+.button-instructions{
+    color:  var(--white);
+    text-decoration: none;
+    background-color: var(--secondary);
+    width: 70%;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 5px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+}
+
+.dia {
+
+    font-weight: bold;
+}
+
+@media screen and (max-width: 40rem) {
+
+    .button-instructions {
+        width: 100%;
+    }
+
+    .calendar {
+        width: 100%;
+    }
 }
