@@ -1,14 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Charis+SIL&display=swap');
 
 :root {
---razzmic-berry: #8a4f7dff;
---pink-lace: #fcddf2ff;
---laurel-green: #b6c8a9ff;
---aero-blue: #c8ead3ff;
---aero-blue-2: #cfffe5ff;
---light-slate-gray: #7293a0ff;
---nyanza: #e5ffdeff;
---xiketic: #170f11ff;
+    --white: #eaf2efff;
+    --main: #912f56ff;
+    --secondary: #476c9bff;
+    --terciary: #468c98ff;
+    --dark: #101419ff;
 --my-font: 'Charis SIL', serif;
 }
 
@@ -17,25 +14,25 @@
 }
 
 body {
-    background-color: var(--pink-lace);
+    background-color: var(--white);
 }
 
 .nav-item {
     text-align: center;
     width: auto;
-    color: var(--xiketic);
+    color: var(--white);
     font-size: medium;
     padding: 0.6em;
 
-    border-left: var(--pink-lace) 1px solid;
+    border-left: var(--white) 1px solid;
     margin: 0;
     height: 70px;
 
 }
 
 .header {
-    background-color: var(--razzmic-berry);
-    color: var(--pink-lace);
+    background-color: var(--main);
+    color: var(--white);
 }
 
 .header-title {
@@ -43,5 +40,5 @@ body {
 }
 
 .color-text {
-    color: var(--pink-lace)
+    color: var(--white)
 }

@@ -40,7 +40,7 @@ const Home = () => {
         <main >
           <div className="container pt-5">
             <h2 className="display-5 text-center titulo"> Entra a tu perfil </h2>
-                <form className="border rounded-3 p-3" onSubmit={handleFormSubmit}>
+                <form className="border rounded-3 p-3 login-form" onSubmit={handleFormSubmit}>
                   <div className="form-group">
                     <label>Correo: </label>
                     <input
@@ -73,11 +73,11 @@ const Home = () => {
                     </button>
                 </div>
                 </form>
-            <h2 className = "text-center m-auto crea my-4"> ó </h2>
+            <h2 className = " display-4 text-center m-auto my-4 titulo"> ó </h2>
             <Link className="crea"
             to= "/signup"
             >
-            <h3 className="crea text-center border rounded "> Crea tu pagina de Terapeuta </h3>
+            <h3 className="crea text-center border rounded p-2 "> Crea tu pagina de Terapeuta </h3>
             </Link>
             </div>
         </main>

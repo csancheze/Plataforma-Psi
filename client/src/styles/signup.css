@@ -1,0 +1,101 @@
+.tooltip3 {
+    position: relative;
+    display: inline;
+    cursor: grab;
+    border-bottom: dashed 2px var(--white);
+    color: var(--white);
+  }
+  
+  .tooltip3 .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: var(--white);
+    color: var(--dark);
+    text-align: center;
+    border: 1px solid;
+    border-radius: 6px;
+    padding: 10px 2px;
+    position: absolute;
+    left: 12px;
+    top: 2.5em;
+    z-index: 1;
+    font-size: large;
+  }
+  
+  .tooltip3:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .div-container {
+      position: relative;
+      border: solid 1px var(--white);
+      height: fit-content;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 5px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+
+  .select-button {
+      border-radius: 25pt;
+      border: 1px solid var(--white);
+      background-color: var(--secondary);
+      color: var(--white);
+      margin: 7px 3px;
+  }
+
+  .button-container {
+      height: 4em;
+      width: 100%;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
+      border: solid 1px var(--white);
+      box-shadow: rgb(44, 89, 97) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -2px -2px 3px 1px inset;
+  }
+
+  .selection-container {
+      height: 2.5em;
+      background-color: var(--white);
+      width: 100%;
+      border-top-left-radius: 2pt;
+      border-bottom-left-radius: 2pt;
+      border-top-right-radius: 0%;
+      border-bottom-right-radius: 0%;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
+  }
+   .borrar {
+       background-color: var(--secondary);
+       border: solid 1px var(--white);
+       color: var(--white);
+       border-top-left-radius: 0%;
+       border-bottom-left-radius: 0%;
+       border-top-right-radius: 10%;
+       border-bottom-right-radius: 10%;
+   }
+
+   .selection {
+       border-right: 1px solid;
+       padding: 6px;
+       height: 100%;
+
+   }
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 5px;
+  }
+  
+
+  ::-webkit-scrollbar-track {
+    background: var(--white);
+    display: none;
+  }
+   
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--main); 
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary)
+  }

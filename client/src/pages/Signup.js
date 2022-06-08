@@ -6,6 +6,7 @@ import { AREAS, MODELOS, SERVICIOS } from "../utils/queries";
 import NewModelo from "../components/NewModelo";
 import NewServicio from "../components/NewServicio";
 import NewArea from "../components/NewArea";
+import "../styles/signup.css"
 
 
 const SignUp = () => {
@@ -145,9 +146,9 @@ const SignUp = () => {
     
 
     return (
-        <main>
+        <main className="pt-4">
               <form  onSubmit={handleFormSubmit} className="border rounded-3 p-3">
-                <div className="form-group">
+                <div className="form-group signup-form">
                     <label htmlFor="exampleFormControlInput1">Correo electrónico de cuenta</label>
                     <input 
                     type="email" 
@@ -246,51 +247,66 @@ const SignUp = () => {
                     placeholder="Describe de manera general quién eres y tu forma de trabajo."
                     onChange={handleChange} />
                 </div>
-                <div>
-                  <h4>Modelos Terapéuticos: Haz click en el modelo para añadirlo a tu perfil.</h4>
-                  <div> {modelos.map((modelo) => {
-                    return <button onClick={(event)=> addModelos(event, modelo._id, modelo.name)} key={modelo._id}>{modelo.name}</button>})}
-                    <button onClick={añadirModelo}>Añadir</button>
+                <div className="div-container rounded mt-3 p-2">
+                  <h4 className="tooltip3">Modelos Terapéuticos
+                    <span className="tooltiptext">Haz click en el modelo para añadirlo a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span>
+                  </h4>
+                 
+                  <div className="button-container rounded mt-3 p-1"> 
+                  {modelos.map((modelo) => {
+                    return <button className="select-button p-2" onClick={(event)=> addModelos(event, modelo._id, modelo.name)} key={modelo._id}>{modelo.name}</button>})}
+                    <button className="select-button p-2" onClick={añadirModelo}><strong>+</strong></button>
+                  </div>
+                  <div className="d-flex column justify-content-between w-100">
+                  <div className="mt-2 border selection-container d-flex">
+                    {addedModelos.map((modelo) =>{
+                       return <span className="selection" key = {modelo}> {modelo} </span>
+                     })}
+                  </div>
+                  { addedModelos.length > 0 ? (<button className=" mt-2 borrar" onClick={deleteModelos}>Borrar</button>) : ("")}
                   </div>
                 </div>                
-                {addedModelos.map((modelo) =>{
-                  return <span key = {modelo}>{modelo} </span>
-                })}
-                { addedModelos.length > 0 ? (<button onClick={deleteModelos}>Borrar</button>) : ("")}
-            
-
                 <NewModelo show={showNewModelo} onHide={handleCloseModelo} ></NewModelo>
-                <div>
-                  <h4>Servicios: Haz click en el servicio para añadirlo a tu perfil.</h4>
-                  <div> {servicios.map((servicio) => {
-                    return <button onClick={(event)=> addServicios(event, servicio._id, servicio.name)} key={servicio._id}>{servicio.name}</button>})}
-                    <button onClick={añadirServicio}>Añadir</button>
-                  </div>                
+                
+                <div className="div-container rounded mt-3 p-2">
+                  <h4 className="tooltip3">Servicios
+                    <span className="tooltiptext">Haz click en el servicio para añadirlo a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span></h4>
+                  <div className="button-container rounded mt-3 p-1"> 
+                  {servicios.map((servicio) => {
+                    return <button className="select-button p-2" onClick={(event)=> addServicios(event, servicio._id, servicio.name)} key={servicio._id}>{servicio.name} </button>})}
+                    <button className="select-button p-2" onClick={añadirServicio}><strong>+</strong></button>
+                  </div>
+                  <div className="d-flex column justify-content-between w-100">
+                  <div className="mt-2 border selection-container d-flex">              
                   {addedServicios.map((servicio) =>{
-                  return <span key={servicio}>{servicio} </span>
+                  return <span  className="selection" key={servicio}>{servicio} </span>
                 })}
-                { addedServicios.length > 0 ? (<button onClick={deleteServicios}>Borrar</button>) : ("")}
-               
-
+                </div>
+                { addedServicios.length > 0 ? (<button className=" mt-2 borrar" onClick={deleteServicios}>Borrar</button>) : ("")}
+                </div>      
                 <NewServicio show={showNewServicio} onHide={handleCloseservicio} ></NewServicio>
                 </div>
-                <div>
-                  <h4>Áreas de atención: Haz click en el area para añadirla a tu perfil.</h4>
-                   <div> {areas.map((area) => {
-                    return <button onClick={(event)=> addAreas(event, area._id, area.name)} key={area._id}>{area.name}</button>})}
-                    
-                    <button onClick={añadirArea}>Añadir</button>
-                  </div>               
-                  {addedAreas.map((area) =>{
-                  return <span key={area}>{area} </span>
-                })}
-                { addedAreas.length > 0 ? (<button onClick={deleteAreas}>Borrar</button>) : ("")}
-                
-               
 
+                <div className="div-container rounded mt-3 p-2">
+                  <h4 className="tooltip3">Áreas de atención
+                    <span className="tooltiptext">Haz click en el modelo para añadirlo a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span>
+                  </h4>
+                   <div className="button-container rounded mt-3 p-1"> 
+                     {areas.map((area) => {
+                    return <button  className="select-button p-2" onClick={(event)=> addAreas(event, area._id, area.name)} key={area._id}>{area.name}</button>})}
+                    <button  className="select-button p-2" onClick={añadirArea}><strong>+</strong></button>
+                  </div>
+                  <div className="d-flex column justify-content-between w-100">
+                  <div className="mt-2 border selection-container d-flex">       
+                  {addedAreas.map((area) =>{
+                  return <span className="selection" key={area}>{area} </span>
+                })}
+                  </div>
+                { addedAreas.length > 0 ? (<button className=" mt-2 borrar" onClick={deleteAreas}>Borrar</button>) : ("")}
+                </div>    
                 <NewArea show={showNewArea} onHide={handleCloseArea} ></NewArea>
                 </div>
-                <button id='submit-button' type="submit" className="btn btn-secondary mt-2">Submit</button>
+                <button id='submit-button' type="submit" className=" btn-text btn-submit border rounded w-100 ">Crear</button>
                
             </form>
         </main>

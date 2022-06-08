@@ -1,40 +1,50 @@
-:root {
---razzmic-berry: #8a4f7dff;
---pink-lace: #fcddf2ff;
---laurel-green: #b6c8a9ff;
---aero-blue: #c8ead3ff;
---aero-blue-2: #cfffe5ff;
---light-slate-gray: #7293a0ff;
---nyanza: #e5ffdeff;
---xiketic: #170f11ff;
-}
-
 main {
-    background-color: var(--light-slate-gray);
     width: 100%;
     min-height: 100vh;
+    background-color: var(--white);
 }
 
 .btn-submit {
   margin-top: 20px;
-  background-color: var(--laurel-green);
+  background-color: var(--secondary);
 }
 
 .btn-text {
     font-size: 1.5em;
-    color: var(--xiketic);
+    color: var(--white);
 }
 
 .crea {
-    color:  var(--nyanza);
+    color:  var(--white);
     text-decoration: none;
+    background-color: var(--main);
+    width: 70%;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 5px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
 }
 
 .titulo {
-    color: var(--nyanza)
+    color: var(--main)
 }
 
 label {
     font-size: 1.5em;
-    color: var(--nyanza)
+    color: var(--white)
+}
+
+form {
+    background-color: var(--terciary);
+    width: 70%;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 5px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+@media screen and (max-width: 40rem) {
+    form {
+        width: 100%;
+    }
+    .crea {
+        width: 100%;
+    }
 }

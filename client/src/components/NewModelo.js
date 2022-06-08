@@ -39,7 +39,7 @@ const NewModelo= ({show, onHide}) => {
 
     return (
         <Modal show= {show} onHide={onHide}>
-            <form className="border rounded-3 p-3">
+            <form className="border rounded-3 p-3 w-100">
                 <div className="form-group">
                         <label htmlFor="exampleFormControlInput1">Nombre del modelo</label>
                         <input 
