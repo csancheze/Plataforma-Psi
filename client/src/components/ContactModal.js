@@ -4,18 +4,18 @@ import emailjs from '@emailjs/browser';
 
 
 
-const ModalCalendar= ({show, onHide, correo, hora, nombre}) => {
-    const [btnText, setBtnText] = useState('Solicitar cita');
+const ContactModal= ({show, onHide, correo, nombre}) => {
+    const [btnText, setBtnText] = useState('Enviar');
     const form = useRef();
 
     const sendEmail = (e) => {
         e.preventDefault();
 
-        emailjs.sendForm('service_8vnmm7t', 'template_rrvi7oa', form.current, '_fyhTOODMjUPojOZC')
+        emailjs.sendForm('service_8vnmm7t', 'template_0tr1mwu', form.current, '_fyhTOODMjUPojOZC')
         .then((result) => {
-            setBtnText('Solicitud realizada!')
+            setBtnText('Mensaje Enviado')
             setTimeout(() => {
-                setBtnText('Solicitar cita')
+                setBtnText('Enviar')
             }, 5000);
             console.log(result.text);
         }, (error) => {
@@ -43,13 +43,9 @@ const ModalCalendar= ({show, onHide, correo, hora, nombre}) => {
             <label htmlFor="exampleFormControlInput1">Mi Nombre</label>
             <input type="name" name="from_name" required className="form-control" id="exampleFormControlInput1" placeholder="ej. John Doe" />
         </div>
-        <div className="form-group">
-            <label htmlFor="exampleFormControlInput1">Dia y hora de la cita:</label>
-            <input type="text" name='date' required className="form-control email" id="exampleFormControlInput1" defaultValue={hora} readOnly />
-        </div>
         <div className="form-group mt-2">
-            <label htmlFor="exampleFormControlTextarea1">Motivo de consulta</label>
-            <textarea className="form-control" required name="message" id="exampleFormControlTextarea1" rows="5" placeholder='ej. Tengo problemas de estrés y está afectando mi relación de pareja.'></textarea>
+            <label htmlFor="exampleFormControlTextarea1">Mensaje</label>
+            <textarea className="form-control" required name="message" id="exampleFormControlTextarea1" rows="5" placeholder='ej. Me gustaria que me dieras más información sobre tus servicios.'></textarea>
         </div>
         <div className="d-flex">
         <button type="submit" className="show-calendar-button border rounded m-2" id='submit-button'>{btnText}</button> <button className="show-calendar-button-close border rounded m-2" onClick={onHide}>Cerrar</button>
@@ -60,4 +56,4 @@ const ModalCalendar= ({show, onHide, correo, hora, nombre}) => {
     )
 }
 
-export default ModalCalendar;
+export default ContactModal;

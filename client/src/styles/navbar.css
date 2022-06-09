@@ -6,7 +6,7 @@
     --secondary: #476c9bff;
     --terciary: #468c98ff;
     --dark: #101419ff;
---my-font: 'Charis SIL', serif;
+    --my-font: 'Charis SIL', serif;
 }
 
 * {
@@ -41,4 +41,19 @@ body {
 
 .color-text {
     color: var(--white)
+}
+
+@media screen and (max-width: 40rem) {
+
+    .nav-item {
+        height: 45px;
+        border: 1px solid var(--white);
+        padding: 0px;
+    }
+}
+
+.footer {
+    padding-bottom: 80px;
+    background-color: var(--white);
+    text-align: center;
 }

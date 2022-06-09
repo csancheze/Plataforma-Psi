@@ -40,9 +40,10 @@ const Perfil = () => {
         const [showNewArea, setShowNewArea] = useState(false)
         const [showCalendar, setShowCalendar] = useState("visually-hidden")
 
-        const imagelink = terapeuta?.foto || ""
-        const imageId = imagelink.split("/")[5]
-    
+        const getGoogleImg = (url) => {
+          const imageId = url.split("/")[5]
+          return imageId
+        }
     
         useEffect(()=>{
           setModelos(dataModelos?.modelos || [])
@@ -256,7 +257,7 @@ const Perfil = () => {
               <div className="show-calendar-container m-auto">
               { showCalendar === "visually-hidden" ? (
               <button className="show-calendar-button m-auto border rounded p-2 mt-2 mb-2" onClick={calendarShow}>Modificar horarios disponibles</button>) : (
-                <button className="show-calendar-button m-auto border rounded p-2 mt-2" onClick={calendarHide}>Cerrar</button>
+                <button className="show-calendar-button-close m-auto border rounded p-2 mt-2" onClick={calendarHide}>Cerrar</button>
               )}
               </div>
 
@@ -269,7 +270,7 @@ const Perfil = () => {
                     <div className="row justify-content-center" >
                       <div className="m-2 column col-lg-3 col-12">  
                         <h3 className="img-card-title m-auto p-1">Foto de perfil</h3>
-                        <img className =" profile-image img-thumbnail img-fluid m-auto" src={`https://drive.google.com/uc?export=view&id=${imageId}`} alt="Foto de perfil"></img>
+                        <img className =" profile-image img-thumbnail img-fluid m-auto" src={`https://drive.google.com/uc?export=view&id=${getGoogleImg(terapeuta.foto)}`} alt="Foto de perfil"></img>
                       </div>
                   
                     <div className="form-group m-auto p-2 col-lg-8 col-12">

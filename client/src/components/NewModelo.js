@@ -62,8 +62,10 @@ const NewModelo= ({show, onHide}) => {
                     placeholder="Describe de manera general el modelo y la forma de trabajo."
                     onChange={handleChange} />
                 </div>
-                <button onClick={newModelo} className="btn btn-secondary mt-2">Añadir</button>
-                <button id="close" onClick={onHide} className="btn btn-danger mt-2">Cerrar</button>
+                <div className="d-flex">
+                <button onClick={newModelo} className="show-calendar-button border rounded m-2">Añadir</button>
+                <button id="close" onClick={onHide} className="show-calendar-button-close border rounded m-2">Cerrar</button>
+                </div>
             </form>
         </Modal>
     )
