@@ -56,7 +56,7 @@ const Terapeuta = () => {
                     <img className ="profile-image img-thumbnail img-fluid" src={`https://drive.google.com/uc?export=view&id=${getGoogleImg(terapeuta.foto)}`} alt="Foto de perfil"></img>
                     </div>
                     <div className='m-2'>
-                        <h2>{terapeuta.titulo}</h2>
+                        <h2 className='mb-3'>{terapeuta.titulo}</h2>
                         <h4>Cédula Profesional: <span className='bio-box p-1'>{terapeuta.cedula}</span></h4>
                         <h3>Modelos Terapeuticos: </h3>
                         {terapeuta.modelos.map((modelo)=>{

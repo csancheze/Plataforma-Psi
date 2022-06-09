@@ -67,9 +67,9 @@ const CalendarPerfil= ({id}) => {
 
             <div className={`d-flex calendar justify-content-between rounded border p-2`} >
                 {semana.map((dia) => {
-                return <ul className= "d-flex flex-column p-0 calendar-column" key={dia.name}><li><button className = {`dia ${buttonActive(dia.active)} rounded calendar-button`}>{dia.name}</button></li>
+                return <ul className= "d-flex flex-column p-0 calendar-column" key={dia.name}><li className='p-1'><button className = {`dia ${buttonActive(dia.active)} rounded calendar-button`}>{dia.name}</button></li>
                 {dia.horas.map((hora) => {
-                    return <li className="calendar-li"s key={dia.name +" "+ hora._id}><button onClick={(event)=> sendMailHora(event, dia.name, hora.tiempo)} type="button"  className = {` ${buttonActive(hora.active)} rounded border hora calendar-button`}>{hora.tiempo}</button></li>})}
+                    return <li className="calendar-li p-1"s key={dia.name +" "+ hora._id}><button onClick={(event)=> sendMailHora(event, dia.name, hora.tiempo)} type="button"  className = {` ${buttonActive(hora.active)} rounded border hora calendar-button`}>{hora.tiempo}</button></li>})}
                 </ul>})
                 }
                 
