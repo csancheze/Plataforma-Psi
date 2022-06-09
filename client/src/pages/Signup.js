@@ -250,7 +250,7 @@ const SignUp = () => {
                     </label>
                     <input 
                     type="url" 
-                    name='photo' 
+                    name='foto' 
                     required 
                     className="form-control mt-2" 
                     id="exampleFormControlInput9" 

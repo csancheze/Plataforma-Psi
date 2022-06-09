@@ -41,7 +41,13 @@ const Perfil = () => {
         const [showCalendar, setShowCalendar] = useState("visually-hidden")
 
         const getGoogleImg = (url) => {
-          const imageId = url.split("/")[5]
+          let imageId = ""
+          if (url.split("/")[5]) {
+            imageId = url.split("/")[5]
+          } else {
+            imageId ="1wlUG_-fKtSmwCW04JAxgsm-LkFqsTZ6j"
+          }
+
           return imageId
         }
     

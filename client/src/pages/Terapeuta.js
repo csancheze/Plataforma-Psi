@@ -4,7 +4,6 @@ import { TERAPEUTA } from '../utils/queries';
 import { useQuery } from '@apollo/client';
 import CalendarPerfil from "../components/CalendarPerfil"
 import "../styles/terapeuta.css"
-import ModalCalendar from '../components/ModalCalendar';
 import ContactModal from '../components/ContactModal';
 
 
@@ -17,10 +16,18 @@ const Terapeuta = () => {
     );
     const terapeuta = data?.terapeuta || {}
 
+
     const getGoogleImg = (url) => {
-        const imageId = url.split("/")[5]
+        let imageId = ""
+        if (url.split("/")[5]) {
+          imageId = url.split("/")[5]
+        } else {
+          imageId ="1wlUG_-fKtSmwCW04JAxgsm-LkFqsTZ6j"
+        }
+
         return imageId
-    }
+      }
+  
 
     const openContactForm = (event) => {
         event.preventDefault()
