@@ -14,10 +14,10 @@
 
   "scripts": {
     "start": "node server/server.js",
-    "build": "cd client && npm run build",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "install": "cd server && npm i && cd ../client && npm i",
+    "seed": "cd server && npm run seed",
+    "build": "cd client && npm run build"
   },
   "keywords": [],
   "author": "",
