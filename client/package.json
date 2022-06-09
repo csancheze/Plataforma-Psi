@@ -2,7 +2,7 @@
   "name": "plataforma-psi",
   "version": "1.0.0",
   "private": true,
-  "homepage": "./",
+  "homepage": "https://plataforma-psi.herokuapp.com/",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@apollo/client": "^3.6.2",

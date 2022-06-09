@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import { TERAPEUTA } from '../utils/queries';
 import { useQuery } from '@apollo/client';
@@ -15,6 +15,10 @@ const Terapeuta = () => {
         }
     );
     const terapeuta = data?.terapeuta || {}
+
+    useEffect(() => {
+        document.title = terapeuta?.nombre || {};
+      }, [data]);
 
 
     const getGoogleImg = (url) => {
