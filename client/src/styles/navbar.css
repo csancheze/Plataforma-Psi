@@ -3,11 +3,14 @@
 :root {
     --white: #eaf2efff;
     --main: #912f56ff;
-    --secondary: #476c9bff;
-    --terciary: #468c98ff;
+    --secondary:#912f56ff;
+    --terciary:  rgb(138, 118, 126);
     --dark: #101419ff;
     --my-font: 'Charis SIL', serif;
 }
+/* secondary #468c98ff;
+
+ terciary #476c9bff; */
 
 * {
     font-family: var(--my-font);    
