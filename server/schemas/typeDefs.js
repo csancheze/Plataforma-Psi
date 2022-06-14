@@ -32,8 +32,8 @@ const typeDefs = gql`
         cedula: String
         foto: String
         bio: String
-        modelos: [Modelos]
-        servicios: [Servicios]
+        modelos: [ModelosT]
+        servicios: [ServiciosT]
         areas: [Areas]
         formacion: [Diplomas]
         posts: [Posts]
@@ -60,11 +60,24 @@ const typeDefs = gql`
         description: String
     }
 
+    type ModelosT {
+        _id: ID
+        name: String!
+        description: String
+    }
+
     type Servicios {
         _id: ID
         name: String!
-        costo: Int
+        costo: String
     }
+
+    type ServiciosT {
+        _id: ID
+        name: String!
+        costo: String
+    }
+
 
     type Areas {
         _id: ID
@@ -123,12 +136,13 @@ const typeDefs = gql`
             cedula: String
             foto: String
             bio: String
-            modelos: [ID]
-            servicios: [ID]
+            modelosName: [String]
+            modelosDescription: [String]
+            serviciosName: [String]
             areas: [ID]
             ): Auth
         addDia(name: String!): Dia
-        addServicio(name: String!, costo: Int):Servicios
+        addServicio(name: String!): Servicios
         addArea(name: String!): Areas
         addHora(tiempo: String!): Hora
         addModelo(name: String!, description: String): Modelos
@@ -142,12 +156,13 @@ const typeDefs = gql`
             cedula: String
             foto: String
             bio: String
-            modelos: [ID]
-            servicios: [ID]
-            areas: [ID]
         ): Terapeuta
-        addModeloTerapeuta(modeloId: ID!): Terapeuta
-        addServicioTerapeuta(servicioId: ID!): Terapeuta 
+        updateCost(
+            servicioId: ID
+            cost: String
+        ): ServiciosT
+        addModeloTerapeuta(name: String!, description: String): Terapeuta
+        addServicioTerapeuta(name: String!): Terapeuta 
         addAreaTerapeuta(areaId: ID!): Terapeuta
         deleteModelo(modeloId: ID!): Terapeuta
         deleteServicio(servicioId: ID!): Terapeuta 

@@ -2,19 +2,18 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const modelosSchema = new Schema({
+const modelosTSchema = new Schema({
   name: {
     type: String,
     required: true,
     trim: true,
-    unique: true,
   },
   description: {
     type: String
   }
 });
 
-const Modelos = mongoose.model('Modelos', modelosSchema);
+const ModelosT = mongoose.model('ModelosT', modelosTSchema);
 
-module.exports = Modelos;
+module.exports = ModelosT;
 

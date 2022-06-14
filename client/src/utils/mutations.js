@@ -59,8 +59,8 @@ export const ADD_PACIENTE = gql `
 `
 
 export const ADD_TERAPEUTA = gql `
-        mutation AddTerapeuta($username: String!, $email: String!, $password: String!, $role: String!, $nombre: String, $titulo: String, $correo: String, $cedula: String, $foto: String, $bio: String, $modelos: [ID], $servicios: [ID], $areas: [ID]) {
-  addTerapeuta(username: $username, email: $email, password: $password, role: $role, nombre: $nombre, titulo: $titulo, correo: $correo, cedula: $cedula, foto: $foto, bio: $bio, modelos: $modelos, servicios: $servicios, areas: $areas) {
+        mutation AddTerapeuta($username: String!, $email: String!, $password: String!, $role: String!, $nombre: String, $titulo: String, $correo: String, $cedula: String, $foto: String, $bio: String, $modelosName: [String], $modelosDescription: [String], $serviciosName: [String], $areas: [ID]) {
+  addTerapeuta(username: $username, email: $email, password: $password, role: $role, nombre: $nombre, titulo: $titulo, correo: $correo, cedula: $cedula, foto: $foto, bio: $bio, modelosName: $modelosName, modelosDescription: $modelosDescription, serviciosName: $serviciosName, areas: $areas) {
             token
             user {
             _id
@@ -144,16 +144,16 @@ export const UPDATE_HORA = gql `
 `
 
 export const ADD_MODELO_TERAPEUTA = gql `
-    mutation addModeloTerapeuta($modeloId: ID!) {
-        addModeloTerapeuta(modeloId: $modeloId) {
+    mutation addModeloTerapeuta($name: String!, $description: String ) {
+        addModeloTerapeuta(name: $name, description: $description) {
             _id
         }
     }
 
 `
 export const ADD_SERVICIO_TERAPEUTA = gql `
-    mutation addServicioTerapeuta($servicioId: ID!) {
-        addServicioTerapeuta(servicioId: $servicioId) {
+    mutation addServicioTerapeuta($name: String!) {
+        addServicioTerapeuta(name: $name) {
             _id
         }
     }

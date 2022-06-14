@@ -8,5 +8,7 @@ const Areas = require ('./Areas')
 const Dia = require ('./Dia')
 const Hora = require ('./Hora')
 const Diplomas = require ('./Diplomas')
+const ServiciosT = require ('./ServiciosT')
+const ModelosT = require ('./ModelosT')
 
-module.exports = { User, Terapeuta, Modelos, Servicios, Posts, Paciente, Areas, Dia, Hora, Diplomas};
+module.exports = { User, Terapeuta, Modelos, Servicios, Posts, Paciente, Areas, Dia, Hora, Diplomas, ServiciosT, ModelosT};

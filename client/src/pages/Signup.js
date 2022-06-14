@@ -13,9 +13,8 @@ import UseGoogleDrive from "../components/UseGoogleDrive"
 const SignUp = () => {
     const [formState, setFormState] = useState({ email: '', password: ''});
     const [AddTerapeuta] = useMutation(ADD_TERAPEUTA);
-    const [formModelos, setFormModelos] = useState([])
     const [addedModelos, setAddedModelos] = useState([])
-    const [formServicios, setFormServicios] = useState([])
+    const [addedDescription, setAddedDescription] = useState([])
     const [addedServicios, setAddedServicios] = useState([])
     const [formAreas, setFormAreas] = useState([])
     const [addedAreas, setAddedAreas] = useState([])
@@ -32,33 +31,32 @@ const SignUp = () => {
     const areas = dataAreas?.areas || []
 
 
-    const addModelos = (event, id, modelo) => {
+    const addModelos = (event, modelo, description) => {
       event.preventDefault()
-      if (formModelos.includes(id)) {
+      if (addedModelos.includes(modelo)) {
         return console.log("already in array")
       }
-      setFormModelos([...formModelos, id])
       setAddedModelos([...addedModelos, modelo])
+      setAddedDescription([...addedDescription, description])
+      console.log(addedDescription)
     }
 
     const deleteModelos = (event) => {
       event.preventDefault()
-      setFormModelos([])
+      setAddedDescription([])
       setAddedModelos([])
     }
 
-    const addServicios = (event, id, servicio) => {
+    const addServicios = (event, servicio) => {
       event.preventDefault()
-      if (formServicios.includes(id)) {
+      if (addedServicios.includes(servicio)) {
         return console.log("already in array")
       }
-      setFormServicios([...formServicios, id])
       setAddedServicios([...addedServicios, servicio])
     }
 
     const deleteServicios = (event) => {
       event.preventDefault()
-      setFormServicios([])
       setAddedServicios([])
     }
 
@@ -134,18 +132,20 @@ const SignUp = () => {
             cedula: formState.cedula,
             foto: formState.foto,
             bio: formState.bio,
-            modelos: formModelos,
-            servicios: formServicios,
+            modelosName: addedModelos,
+            modelosDescription: addedDescription,
+            serviciosName: addedServicios,
             areas: formAreas
           },
         });
-        console.log(mutationResponse)
-        const token = mutationResponse.data.addTerapeuta.token;
-        Auth.login(token);
+          console.log(mutationResponse)
+          const token = mutationResponse.data.addTerapeuta.token;
+          Auth.login(token);
       } catch (e) {
-        alert('Failed to sign up!')
+        alert('Algo salió mal!')
         console.error(e);
       };
+
     }
 
     const handleChange = (event) => {
@@ -268,14 +268,14 @@ const SignUp = () => {
                     placeholder="Describe de manera general quién eres y tu forma de trabajo."
                     onChange={handleChange} />
                 </div>
-                <div className="div-container rounded mt-3 p-2">
+                <div className="div-container w-100 rounded mt-3 p-2">
                   <h4 className="tooltip3">Modelos Terapéuticos
                     <span className="tooltiptext">Haz click en el modelo para añadirlo a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span>
                   </h4>
                  
                   <div className="button-container rounded mt-3 p-1"> 
                   {modelos.map((modelo) => {
-                    return <button className="select-button p-2" onClick={(event)=> addModelos(event, modelo._id, modelo.name)} key={modelo._id}>{modelo.name}</button>})}
+                    return <button className="select-button p-2" onClick={(event)=> addModelos(event, modelo.name, modelo.description)} key={modelo._id}>{modelo.name}</button>})}
                     <button className="select-button p-2" onClick={añadirModelo}><strong>+</strong></button>
                   </div>
                   <div className="d-flex column justify-content-between w-100">
@@ -289,12 +289,12 @@ const SignUp = () => {
                 </div>                
                 <NewModelo show={showNewModelo} onHide={handleCloseModelo} ></NewModelo>
                 
-                <div className="div-container rounded mt-3 p-2">
+                <div className="div-container w-100 rounded mt-3 p-2">
                   <h4 className="tooltip3">Servicios
                     <span className="tooltiptext">Haz click en el servicio para añadirlo a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span></h4>
                   <div className="button-container rounded mt-3 p-1"> 
                   {servicios.map((servicio) => {
-                    return <button className="select-button p-2" onClick={(event)=> addServicios(event, servicio._id, servicio.name)} key={servicio._id}>{servicio.name} </button>})}
+                    return <button className="select-button p-2" onClick={(event)=> addServicios(event, servicio.name)} key={servicio._id}>{servicio.name} </button>})}
                     <button className="select-button p-2" onClick={añadirServicio}><strong>+</strong></button>
                   </div>
                   <div className="d-flex column justify-content-between w-100">
@@ -308,7 +308,7 @@ const SignUp = () => {
                 <NewServicio show={showNewServicio} onHide={handleCloseservicio} ></NewServicio>
                 </div>
 
-                <div className="div-container rounded mt-3 p-2">
+                <div className="div-container w-100 rounded mt-3 p-2">
                   <h4 className="tooltip3">Áreas de atención
                     <span className="tooltiptext">Haz click en el área para añadirla a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span>
                   </h4>

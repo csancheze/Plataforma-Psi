@@ -14,6 +14,7 @@ import UseGoogleDrive from "../components/UseGoogleDrive"
 
 const Perfil = () => {
         const [formState, setFormState] = useState({});
+        const [inputCost, setInputCost] = useState([])
 
         const [UpdateTerapeuta] = useMutation(UPDATE_TERAPEUTA);
         const [addAreaTerapeuta] = useMutation(ADD_AREA_TERAPEUTA);
@@ -57,15 +58,16 @@ const Perfil = () => {
           setAreas(dataAreas?.areas || [])
         }, [dataModelos, dataServicios, dataAreas])
     
-        const addModelo = async (event, id) => {
+        const addModelo = async (event, name, description) => {
           event.preventDefault()
-          if (terapeuta.modelos.some(e => e._id === id)) {
+          if (terapeuta.modelos.some(e => e.name === name)) {
             return console.log("Modelo already in array")
           }
           try {
             const mutationResponse = await addModeloTerapeuta({
               variables: {
-                modeloId: id
+                name: name,
+                description: description
               }
             })
             console.log(mutationResponse)
@@ -76,15 +78,15 @@ const Perfil = () => {
           }
         }
     
-        const addServicio = async(event, id) => {
+        const addServicio = async(event, name) => {
           event.preventDefault()
-          if (terapeuta.servicios.some(e => e._id === id)) {
+          if (terapeuta.servicios.some(e => e.name === name)) {
             return console.log("Servicio already in array")
           }
           try {
             const mutationResponse = await addServicioTerapeuta({
               variables: {
-                servicioId: id
+                name: name
               }
             })
             console.log(mutationResponse)
@@ -356,41 +358,43 @@ const Perfil = () => {
                         onChange={handleChange} />
                     </div> 
                     <button id='submit-button' type="submit" className="btn-text btn-submit border rounded w-100">Actualizar</button>
-                    <div className="div-container rounded mt-3 p-2 mb-5">
+                    </form>
+                    <div className="div-container rounded mt-3 p-2 mb-2">
                       <h4 className="tooltip3">Modelos Terapéuticos
                         <span className="tooltiptext">Haz click en el modelo para añadirlo a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span>
                       </h4>
                       <div className="button-container rounded mt-3 p-1"> {modelos.map((modelo) => {
-                        return <button className="select-button p-2" onClick={(event)=> addModelo(event, modelo._id)} key={modelo._id}>{modelo.name}</button>})}
+                        return <button className="select-button p-2" onClick={(event)=> addModelo(event, modelo.name, modelo.description)} key={modelo._id}>{modelo.name}</button>})}
                         <button className="select-button p-2" onClick={añadirModelo}><strong>+</strong></button>
                       </div>
-                       <div className="mt-2 border selection-container d-flex">
+                       <div className="mt-2 border d-flex flex-column">
                       {terapeuta.modelos.map((modelo) =>{
-                      return <div>
-                        <span className="selection-perfil" key = {modelo._id}>{modelo.name} </span>
-                        <button className="button-close" onClick={(event) => quitarModelo(event, modelo._id)}>x</button>
+                      return <div className="w-100 border row m-auto">
+                        <span className="selection-perfil col-11" key = {modelo._id}>{modelo.name} </span>
+                        <button className="button-close col-1" onClick={(event) => quitarModelo(event, modelo._id)}>X</button>
+
                         </div>})}
                       </div>
                     </div>
                     <NewModelo show={showNewModelo} onHide={handleCloseModelo} ></NewModelo>
-                    <div className="div-container rounded mt-3 p-2 mb-5 ">
+                    <div className="div-container rounded mt-3 p-2 mb-2 ">
                       <h4 className="tooltip3">Servicios
                       <span className="tooltiptext">Haz click en el servicio para añadirlo a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span>
                       </h4>
                       <div className="button-container rounded mt-3 p-1"> {servicios.map((servicio) => {
-                        return <button className="select-button p-2" onClick={(event)=> addServicio(event, servicio._id)} key={servicio._id}>{servicio.name}</button>})}
+                        return <button className="select-button p-2" onClick={(event)=> addServicio(event, servicio.name)} key={servicio._id}>{servicio.name}</button>})}
                         <button  className="select-button p-2" onClick={añadirServicio}><strong>+</strong></button>
                       </div>         
-                      <div className="mt-2 border selection-container d-flex">
+                      <div className="mt-2 border d-flex flex-column">
                       {terapeuta.servicios.map((servicio) =>{
-                      return <div> 
-                        <span className="selection-perfil"  key = {servicio._id}>{servicio.name}</span>
-                        <button  className="button-close" onClick={(event) => quitarServicio(event, servicio._id)}>x</button></div>})}
-                      
+                      return <div className="w-100 border row m-auto"> 
+                        <span className="selection-perfil border col-11"  key = {servicio._id}>{servicio.name}</span> 
+                         <button  className="button-close col-1 border" onClick={(event) => quitarServicio(event, servicio._id)}>x</button>
+                       </div>})}   
                         </div>
                     <NewServicio show={showNewServicio} onHide={handleCloseservicio} ></NewServicio>
                     </div>
-                    <div className="div-container rounded mt-3 p-2 mb-5">
+                    <div className="div-container rounded mt-3 p-2">
                     <h4 className="tooltip3">Áreas de atención
                     <span className="tooltiptext">Haz click en el área para añadirla a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span>
                   </h4>
@@ -410,7 +414,7 @@ const Perfil = () => {
                     </div>
                    
                    
-                </form>
+                
             </main>
     )
 };

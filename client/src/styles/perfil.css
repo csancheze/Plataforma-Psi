@@ -12,13 +12,12 @@
     background-color: var(--dark);
     border: 0px;
     font-size: 0.7em;
-    vertical-align: super;
 }
 
 .selection-perfil{
     padding: 5px;
     height: 100%;
-    border-left: 1px solid;
+    color: var(--white);
 }
 
 .show-calendar-container {

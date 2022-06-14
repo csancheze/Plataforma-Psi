@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
-const { User, Terapeuta, Areas, Modelos, Paciente, Posts, Servicios, Dia, Hora } = require('../models');
+const { User, Terapeuta, Areas, Modelos, Paciente, Posts, Servicios, Dia, Hora, ModelosT, ServiciosT } = require('../models');
 const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 const horas = ["8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00", "20:00","21:00"]
 
@@ -131,10 +131,21 @@ const resolvers = {
                     cedula: args.cedula,
                     foto: args.foto,
                     bio: args.bio,
-                    modelos: args.modelos,
-                    servicios: args.servicios,
                     areas: args.areas,
                 })
+                for (let i = 0; i < args.modelosName.length; i++) {
+                    const modelosTData = await ModelosT.create({name: args.modelosName[i], description: args.modelosDescription[i]})
+                    const terapeutaModelosData = await Terapeuta.findByIdAndUpdate(terapeutaData._id, {
+                        $push: {modelos: modelosTData}
+                    })
+                }
+                for (let i = 0; i < args.serviciosName.length; i++) {
+                    const serviciosTData = await ServiciosT.create({name: args.serviciosName[i]})
+                    const terapeutaModelosData = await Terapeuta.findByIdAndUpdate(terapeutaData._id, {
+                        $push: {servicios: serviciosTData}
+                    })
+                }
+
                 for (let i = 0; i < dias.length; i++) {
                     const diasData = await Dia.create({name: dias[i]})
                     const terapeutaDiadata = await Terapeuta.findByIdAndUpdate(terapeutaData._id, {
@@ -219,23 +230,28 @@ const resolvers = {
                 cedula: args.cedula,
                 foto: args.foto,
                 bio: args.bio,
-                modelos: args.modelos,
-                servicios: args.servicios,
-                areas: args.areas,
             })
             return terapeutaData
         },
         addModeloTerapeuta: async(parent,args,context) => {
+            const newModelo= await ModelosT.create({name: args.name, description: args.description})
             const terapeutaData = await  Terapeuta.findByIdAndUpdate(context.user._id, {
-                $push: {modelos: args.modeloId}
+                $push: {modelos: newModelo}
             })
             return terapeutaData
         },
         addServicioTerapeuta: async(parent,args,context) => {
+            const newServicio = await ServiciosT.create({name: args.name})
             const terapeutaData = await  Terapeuta.findByIdAndUpdate(context.user._id, {
-                $push: {servicios: args.servicioId}
+                $push: {servicios: newServicio}
             })
             return terapeutaData
+        },
+        updateCost: async(parent,args,context) => {
+            const servicioData = await ServiciosT.findByIdAndUpdate(args.serviciosId,{
+                costo: args.cost
+            })
+            return servicioData
         },
         addAreaTerapeuta: async(parent,args,context) => {
             const terapeutaData = await  Terapeuta.findByIdAndUpdate(context.user._id, {
@@ -247,13 +263,15 @@ const resolvers = {
             const user = await Terapeuta.findByIdAndUpdate({ _id: context.user._id }, {
                 $pull: { modelos: args.modeloId }
             })
-            return {user}
+            const modelo = await ModelosT.deleteOne({_id: args.modeloId})
+            return {user, modelo}
         },
         deleteServicio: async (parent, args, context) => {
             const user = await Terapeuta.findByIdAndUpdate({ _id: context.user._id }, {
                 $pull: { servicios: args.servicioId }
             })
-            return {user}
+            const servicio = await ServiciosT.deleteOne({_id: args.serviciosId})
+            return {user, servicio}
         },
         deleteArea: async (parent, args, context) => {
             const user = await Terapeuta.findByIdAndUpdate({ _id: context.user._id }, {

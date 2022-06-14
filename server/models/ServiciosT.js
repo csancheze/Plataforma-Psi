@@ -2,19 +2,18 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const modelosSchema = new Schema({
+const serviciosTSchema = new Schema({
   name: {
     type: String,
     required: true,
     trim: true,
-    unique: true,
   },
-  description: {
+  costo: {
     type: String
   }
 });
 
-const Modelos = mongoose.model('Modelos', modelosSchema);
+const ServiciosT = mongoose.model('ServiciosT', serviciosTSchema);
 
-module.exports = Modelos;
+module.exports = ServiciosT;
 
