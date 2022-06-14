@@ -7,6 +7,7 @@ const serviciosTSchema = new Schema({
     type: String,
     required: true,
     trim: true,
+    unique: false
   },
   costo: {
     type: String

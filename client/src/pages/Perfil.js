@@ -418,11 +418,11 @@ const Perfil = () => {
                         return <button className="select-button p-2" onClick={(event)=> addModelo(event, modelo.name, modelo.description)} key={modelo._id}>{modelo.name}</button>})}
                         <button className="select-button p-2" onClick={añadirModelo}><strong>+</strong></button>
                       </div>
-                       <div className="mt-2 border d-flex flex-column">
+                       <div className="mt-2 border rounded d-flex flex-column">
                       {terapeuta.modelos.map((modelo) =>{
                       return <div className="w-100 border row m-auto">
                         <span className="selection-perfil col-11" key = {modelo._id}>{modelo.name} </span>
-                        <button className="button-close col-1" onClick={(event) => quitarModelo(event, modelo._id)}>X</button>
+                        <button className="button-close rounded col-1" onClick={(event) => quitarModelo(event, modelo._id)}>X</button>
                         <textarea defaultValue={modelo.description} onChange={handleChangeTextArea}></textarea>
                         <button className="btn-submit border" onClick={(event) => handleTextAreaSubmit(event, modelo._id)}>Actualizar</button>
                         </div>})}
@@ -437,15 +437,15 @@ const Perfil = () => {
                         return <button className="select-button p-2" onClick={(event)=> addServicio(event, servicio.name)} key={servicio._id}>{servicio.name}</button>})}
                         <button  className="select-button p-2" onClick={añadirServicio}><strong>+</strong></button>
                       </div>         
-                      <div className="mt-2 border d-flex flex-column">
+                      <div className="mt-2 border rounded d-flex flex-column">
                       {terapeuta.servicios.map((servicio) =>{
-                      return <div className="w-100 border row m-auto"> 
-                        <span className="selection-perfil border col-11"  key = {servicio._id}>{servicio.name}</span> 
-                         <button  className="button-close col-1 border" onClick={(event) => quitarServicio(event, servicio._id)}>x</button>
-                         <div className="w-100 border row p-0 m-auto">
-                          <label className= "selection-perfil small col-sm-2 text-end col-6">Costo:</label>
-                          <input className="col-6" onChange={handleChangeInputCost} defaultValue={servicio.costo}></input>
-                          <button className="btn-submit border col-sm-4 col-12" onClick={(event) => handleInputCostSubmit(event, servicio._id)}>Actualizar</button>
+                      return <div className="w-100  rounded border row m-auto"> 
+                        <span className="selection-perfil col-11"  key = {servicio._id}>{servicio.name}</span> 
+                         <button  className="button-close rounded col-1 " onClick={(event) => quitarServicio(event, servicio._id)}>X</button>
+                         <div className="w-100 rounded  border row p-0 m-auto">
+                          <label className= "selection-perfil rounded  small col-sm-2 text-end col-6">Costo:</label>
+                          <input className="col-6 rounded border my-1 " onChange={handleChangeInputCost} defaultValue={servicio.costo}></input>
+                          <button className="btn-submit border rounded my-1 col-sm-4 col-12" onClick={(event) => handleInputCostSubmit(event, servicio._id)}>Actualizar</button>
                          </div>
                        </div>})}   
                         </div>
@@ -455,15 +455,15 @@ const Perfil = () => {
                     <h4 className="tooltip3">Áreas de atención
                     <span className="tooltiptext">Haz click en el área para añadirla a tu perfil. Si no lo encuentras, agregalo con el boton de <strong>+</strong></span>
                   </h4>
-                  <div className="button-container rounded mt-3 p-1">  {areas.map((area) => {
+                  <div className="button-container  rounded mt-3 p-1">  {areas.map((area) => {
                         return <button className="select-button p-2" onClick={(event)=> addArea(event, area._id)} key={area._id}>{area.name}</button>})}
-                        <button className="select-button p-2" onClick={añadirArea}><strong>+</strong></button>
+                        <button className="select-button rounded p-2" onClick={añadirArea}><strong>+</strong></button>
                       </div>                    
-                      <div className="mt-2 border d-flex flex-column flex-sm-row">
+                      <div className="mt-2 border rounded p-2 m-2 row">
                       {terapeuta.areas.map((area) =>{
-                      return <div className="w-100 border row m-auto">
-                        <span className="selection-perfil col-11" key = {area._id}>{area.name} </span>
-                        <button className="button-close col-1" onClick={(event) => quitarArea(event, area._id)}>x</button></div>})}
+                      return <div className="border rounded col-12 col-sm-6 p-1 row m-auto">
+                        <span className="selection-perfil rounded col-11" key = {area._id}>{area.name} </span>
+                        <button className="button-close rounded col-1" onClick={(event) => quitarArea(event, area._id)}>X</button></div>})}
                         </div>
 
 

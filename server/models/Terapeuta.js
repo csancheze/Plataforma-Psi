@@ -29,7 +29,7 @@ const terapeutaSchema = new Schema({
   },
   modelos: [{
       type: Schema.Types.ObjectId,
-      ref: 'ModelosT'
+      ref: 'ModelosT',
     }]
   ,
   servicios: [

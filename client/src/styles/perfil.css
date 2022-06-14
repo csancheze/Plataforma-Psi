@@ -45,6 +45,13 @@
 
 }
 
+.questionmark {
+    vertical-align: super;
+    font-size: medium;
+    cursor: pointer;
+    margin: 2px
+}
+
 @media screen and (max-width: 40rem) {
 
     .show-calendar-container {

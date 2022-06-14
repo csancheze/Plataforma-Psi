@@ -20,6 +20,7 @@ body {
     background-color: var(--white);
 }
 
+
 .nav-item {
     text-align: center;
     width: auto;
@@ -45,7 +46,12 @@ body {
 .color-text {
     color: var(--white)
 }
-
+.footer {
+    padding-bottom: 80px;
+    background-color: var(--white);
+    text-align: center;
+    padding-top: 20px;
+}
 @media screen and (max-width: 40rem) {
 
     .nav-item {
@@ -53,11 +59,8 @@ body {
         border: 1px solid var(--white);
         padding: 0px;
     }
+    .footer {
+        padding-bottom: 200px;
+    }
 }
 
-.footer {
-    padding-bottom: 80px;
-    background-color: var(--white);
-    text-align: center;
-    padding-top: 20px;
-}

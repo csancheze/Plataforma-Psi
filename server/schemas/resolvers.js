@@ -234,14 +234,14 @@ const resolvers = {
             return terapeutaData
         },
         addModeloTerapeuta: async(parent,args,context) => {
-            const newModelo= await ModelosT.create({name: args.name, description: args.description})
+            const newModelo= await ModelosT.insertMany({name: args.name, description: args.description})
             const terapeutaData = await  Terapeuta.findByIdAndUpdate(context.user._id, {
                 $push: {modelos: newModelo}
             })
             return terapeutaData
         },
         addServicioTerapeuta: async(parent,args,context) => {
-            const newServicio = await ServiciosT.create({name: args.name})
+            const newServicio = await ServiciosT.insertMany({name: args.name})
             const terapeutaData = await  Terapeuta.findByIdAndUpdate(context.user._id, {
                 $push: {servicios: newServicio}
             })

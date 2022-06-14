@@ -7,6 +7,7 @@ const modelosTSchema = new Schema({
     type: String,
     required: true,
     trim: true,
+    unique: false
   },
   description: {
     type: String

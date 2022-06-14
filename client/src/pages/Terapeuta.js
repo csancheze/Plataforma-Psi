@@ -5,11 +5,13 @@ import { useQuery } from '@apollo/client';
 import CalendarPerfil from "../components/CalendarPerfil"
 import "../styles/terapeuta.css"
 import ContactModal from '../components/ContactModal';
+import ModeloInfo from '../components/ModeloInfo';
 
 
 const Terapeuta = () => {
     const {terapeutaId} = useParams()
     const [show, setShow] = useState(false);
+    const [showInfo, setShowInfo] = useState(false)
     const {loading, data} = useQuery(TERAPEUTA, {
             variables: {id: terapeutaId}
         }
@@ -43,6 +45,15 @@ const Terapeuta = () => {
         setShow(false);
     }
 
+    const showModeloInfo = (event) => {
+        event.preventDefault();
+        setShowInfo(true)
+    }
+    const onHideModeloInfo = (event) => {
+        event.preventDefault()
+        setShowInfo(false)
+    }
+
     if (loading) {
         return <div>Loading...</div>
     }
@@ -59,9 +70,14 @@ const Terapeuta = () => {
                         <h2 className='mb-3'>{terapeuta.titulo}</h2>
                         <h4>Cédula Profesional: <span className='bio-box p-1'>{terapeuta.cedula}</span></h4>
                         <h3>Modelos Terapeuticos: </h3>
+                        <ul>
                         {terapeuta.modelos.map((modelo)=>{
-                            return <li key={modelo._id}> {modelo.name} </li>
+                            return <div><li className='w-100' key={modelo._id}> <h4 className='servicios' >{modelo.name}<span className='questionmark' onClick={showModeloInfo}>?</span></h4></li>
+                            <ModeloInfo show={showInfo} onHide={onHideModeloInfo} description={modelo.description}></ModeloInfo>
+                            </div>
                         })}
+                        </ul>
+                       
                     </div>
                 </div>
                 <div className='bio-box m-2'>
@@ -71,16 +87,16 @@ const Terapeuta = () => {
             </div>
             <div className='info-box d-flex flex-column flex-sm-row justify-content-around m-auto'>
                     <div className='terapeuta-box w-100 rounded border'><h3>Servicios</h3>
-                    <ul>
+                    <ul className='d-flex flex-column p-0 m-auto'>
                         {terapeuta.servicios.map ((servicio) =>{
-                            return <li key={servicio._id}>{servicio.name}</li>
+                            return <li className='row mx-0 mb-2 p-0 border rounded w-100 justify-content-between ' key={servicio._id}><h4 className='col-9 py-2 servicio'>☑ {servicio.name}</h4><span className='col-3 text-end py-2'>{servicio.costo}</span></li>
                         })}
                     </ul>
                     </div>
-                    <div className='terapeuta-box w-100 rounded border'><h3>Áreas de atención:</h3>
-                        <ul>
+                    <div className='terapeuta-box w-100 rounded border'><h3>Áreas de atención</h3>
+                        <ul className='row mx-0 p-0 w-100 justify-content-between'>
                             {terapeuta.areas.map((area)=>{
-                                return <li key={area._id}>{area.name}</li>
+                                return <li className='col-12 col-sm-6 py-1 servicio' key={area._id}><h4 className='servicios small'>☑ {area.name}</h4></li>
                             })}
                         </ul>
                     </div>
