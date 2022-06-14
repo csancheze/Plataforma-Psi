@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from "react";
-import { ADD_AREA_TERAPEUTA, ADD_MODELO_TERAPEUTA, ADD_SERVICIO_TERAPEUTA, DELETE_AREA, DELETE_MODELO, DELETE_SERVICIO, UPDATE_TERAPEUTA } from '../utils/mutations';
+import { ADD_AREA_TERAPEUTA, ADD_MODELO_TERAPEUTA, ADD_SERVICIO_TERAPEUTA, DELETE_AREA, UPDATE_DESCRIPTION, UPDATE_COST, DELETE_MODELO, DELETE_SERVICIO, UPDATE_TERAPEUTA } from '../utils/mutations';
 import { useMutation, useQuery } from '@apollo/client';
 import Auth from "../utils/auth";
 import { AREAS, MODELOS, SERVICIOS } from "../utils/queries";
@@ -14,7 +14,9 @@ import UseGoogleDrive from "../components/UseGoogleDrive"
 
 const Perfil = () => {
         const [formState, setFormState] = useState({});
+        const [textArea, setTextArea] = useState({})
         const [inputCost, setInputCost] = useState([])
+        const [showGoogle, setShowGoogle] = useState(false)
 
         const [UpdateTerapeuta] = useMutation(UPDATE_TERAPEUTA);
         const [addAreaTerapeuta] = useMutation(ADD_AREA_TERAPEUTA);
@@ -23,7 +25,10 @@ const Perfil = () => {
         const [deleteModelo] = useMutation(DELETE_MODELO);
         const [deleteServicio] = useMutation(DELETE_SERVICIO);
         const [deleteArea] = useMutation(DELETE_AREA)
-        const [showGoogle, setShowGoogle] = useState(false)
+        const [UpdateDescription] = useMutation(UPDATE_DESCRIPTION)
+        const [UpdateCost] = useMutation(UPDATE_COST)
+
+        
 
         const {loading: loadingTerapeuta,  data: dataTerapeuta, refetch: refetchTerapeuta} = useQuery(QUERY_ME_TERAPEUTA)
            let terapeuta =dataTerapeuta?.me.terapeuta || []
@@ -228,7 +233,7 @@ const Perfil = () => {
             alert("Información actualizada")
             window.location.reload()
           } catch (e) {
-            alert('Failed to sign up!')
+            alert('No se pudo actualizar!')
             console.error(e);
           };
         }
@@ -240,6 +245,52 @@ const Perfil = () => {
             [name]: value,
           });
         };
+
+        const handleChangeTextArea = (event) => {
+          setTextArea(event.target.value);
+          console.log(textArea)
+        };
+
+        const handleTextAreaSubmit = async (event, id) => {
+          event.preventDefault();
+          try {
+            const mutationResponse = await UpdateDescription({
+              variables: {
+                modeloId: id,
+                description: textArea
+              },
+            });
+            console.log(mutationResponse)
+            alert("Información actualizada")
+          } catch (e) {
+            alert('No se pudo actualizar!')
+            console.error(e);
+          };
+        }
+
+        const handleChangeInputCost = (event) => {
+          setInputCost(event.target.value);
+          console.log(inputCost)
+        };
+
+        
+        const handleInputCostSubmit = async (event, id) => {
+          event.preventDefault();
+          try {
+            const mutationResponse = await UpdateCost({
+              variables: {
+                servicioId: id,
+                cost: inputCost
+              },
+            });
+            console.log(mutationResponse)
+            alert("Información actualizada")
+          } catch (e) {
+            alert('No se pudo actualizar!')
+            console.error(e);
+          };
+        }
+
 
         const calendarShow = (event) => {
           event.preventDefault()
@@ -372,7 +423,8 @@ const Perfil = () => {
                       return <div className="w-100 border row m-auto">
                         <span className="selection-perfil col-11" key = {modelo._id}>{modelo.name} </span>
                         <button className="button-close col-1" onClick={(event) => quitarModelo(event, modelo._id)}>X</button>
-
+                        <textarea defaultValue={modelo.description} onChange={handleChangeTextArea}></textarea>
+                        <button className="btn-submit border" onClick={(event) => handleTextAreaSubmit(event, modelo._id)}>Actualizar</button>
                         </div>})}
                       </div>
                     </div>
@@ -390,6 +442,11 @@ const Perfil = () => {
                       return <div className="w-100 border row m-auto"> 
                         <span className="selection-perfil border col-11"  key = {servicio._id}>{servicio.name}</span> 
                          <button  className="button-close col-1 border" onClick={(event) => quitarServicio(event, servicio._id)}>x</button>
+                         <div className="w-100 border row p-0 m-auto">
+                          <label className= "selection-perfil small col-sm-2 text-end col-6">Costo:</label>
+                          <input className="col-6" onChange={handleChangeInputCost} defaultValue={servicio.costo}></input>
+                          <button className="btn-submit border col-sm-4 col-12" onClick={(event) => handleInputCostSubmit(event, servicio._id)}>Actualizar</button>
+                         </div>
                        </div>})}   
                         </div>
                     <NewServicio show={showNewServicio} onHide={handleCloseservicio} ></NewServicio>
@@ -402,11 +459,11 @@ const Perfil = () => {
                         return <button className="select-button p-2" onClick={(event)=> addArea(event, area._id)} key={area._id}>{area.name}</button>})}
                         <button className="select-button p-2" onClick={añadirArea}><strong>+</strong></button>
                       </div>                    
-                      <div className="mt-2 border selection-container d-flex">
+                      <div className="mt-2 border d-flex flex-column flex-sm-row">
                       {terapeuta.areas.map((area) =>{
-                      return <div>
-                        <span className="selection-perfil" key = {area._id}>{area.name} </span>
-                        <button className="button-close" onClick={(event) => quitarArea(event, area._id)}>x</button></div>})}
+                      return <div className="w-100 border row m-auto">
+                        <span className="selection-perfil col-11" key = {area._id}>{area.name} </span>
+                        <button className="button-close col-1" onClick={(event) => quitarArea(event, area._id)}>x</button></div>})}
                         </div>
 
 

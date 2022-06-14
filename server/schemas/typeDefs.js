@@ -161,6 +161,7 @@ const typeDefs = gql`
             servicioId: ID
             cost: String
         ): ServiciosT
+        updateDescription(modeloId: ID, description: String): ModelosT
         addModeloTerapeuta(name: String!, description: String): Terapeuta
         addServicioTerapeuta(name: String!): Terapeuta 
         addAreaTerapeuta(areaId: ID!): Terapeuta

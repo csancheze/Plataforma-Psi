@@ -248,8 +248,14 @@ const resolvers = {
             return terapeutaData
         },
         updateCost: async(parent,args,context) => {
-            const servicioData = await ServiciosT.findByIdAndUpdate(args.serviciosId,{
+            const servicioData = await ServiciosT.findByIdAndUpdate(args.servicioId,{
                 costo: args.cost
+            })
+            return servicioData
+        },
+        updateDescription: async(parent,args,context) => {
+            const servicioData = await ModelosT.findByIdAndUpdate(args.modeloId,{
+                description: args.description
             })
             return servicioData
         },

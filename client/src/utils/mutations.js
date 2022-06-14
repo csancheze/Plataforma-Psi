@@ -194,3 +194,21 @@ export const DELETE_AREA = gql `
     }
 
 `
+
+export const UPDATE_COST = gql `
+    mutation updateCost($servicioId: ID!, $cost: String) {
+        updateCost(servicioId: $servicioId, cost: $cost) {
+            _id
+        }
+    }
+
+`
+
+export const UPDATE_DESCRIPTION = gql `
+    mutation updateDescription($modeloId: ID!, $description: String) {
+        updateDescription(modeloId: $modeloId, description: $description) {
+            _id
+        }
+    }
+
+`
