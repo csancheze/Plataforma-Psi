@@ -28,7 +28,8 @@ Follow the Installation Instructions. Create a Profile and Update it.
 
   
   
-![Plataforma Psi webpage working as expected](assets/images/screenshot.png)
+![Plataforma Psi webpage working as expected](screenshot1.png)
+![Plataforma Psi Profile webpage working as expected](screenshot2.png)
   
   ## License
   
