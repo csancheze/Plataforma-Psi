@@ -76,11 +76,10 @@ export const ADD_TERAPEUTA = gql `
     }
 `
 export const ADD_SERVICIO = gql `
-    mutation AddServicio($name: String!, $costo: Int) {
-        addServicio(name: $name, costo: $costo) {
+    mutation AddServicio($name: String!) {
+        addServicio(name: $name) {
             _id
             name
-            costo
         }
     }
 `
