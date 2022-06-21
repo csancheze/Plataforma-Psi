@@ -12,10 +12,12 @@ const Terapeuta = () => {
     const {terapeutaId} = useParams()
     const [show, setShow] = useState(false);
     const [showInfo, setShowInfo] = useState(false)
+    const [description, setDescription] = useState({})
     const {loading, data} = useQuery(TERAPEUTA, {
             variables: {id: terapeutaId}
         }
     );
+    
     const terapeuta = data?.terapeuta || {}
 
     useEffect(() => {
@@ -45,8 +47,9 @@ const Terapeuta = () => {
         setShow(false);
     }
 
-    const showModeloInfo = (event) => {
+    const showModeloInfo = (event, description) => {
         event.preventDefault();
+        setDescription(description)
         setShowInfo(true)
     }
     const onHideModeloInfo = (event) => {
@@ -72,8 +75,10 @@ const Terapeuta = () => {
                         <h3>Modelos Terapeuticos: </h3>
                         <ul>
                         {terapeuta.modelos.map((modelo)=>{
-                            return <div><li className='w-100' key={modelo._id}> <h4 className='servicios' >{modelo.name}<span className='questionmark' onClick={showModeloInfo}>?</span></h4></li>
-                            <ModeloInfo show={showInfo} onHide={onHideModeloInfo} description={modelo.description}></ModeloInfo>
+                            return <div><li className='w-100' key={modelo._id}> <h4 className='servicios' >{modelo.name}<span className='questionmark' onClick={(e) => showModeloInfo(e, modelo.description)}>?</span></h4></li>
+                            <div className='d-flex'>
+                            <ModeloInfo show={showInfo} onHide={onHideModeloInfo} description={description}></ModeloInfo>
+                            </div>
                             </div>
                         })}
                         </ul>
