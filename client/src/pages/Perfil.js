@@ -261,6 +261,7 @@ const Perfil = () => {
               },
             });
             console.log(mutationResponse)
+            refetchTerapeuta()
             alert("Información actualizada")
           } catch (e) {
             alert('No se pudo actualizar!')
@@ -284,6 +285,7 @@ const Perfil = () => {
               },
             });
             console.log(mutationResponse)
+            refetchTerapeuta()
             alert("Información actualizada")
           } catch (e) {
             alert('No se pudo actualizar!')
