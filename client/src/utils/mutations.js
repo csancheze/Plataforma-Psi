@@ -141,6 +141,17 @@ export const UPDATE_HORA = gql `
     }
 
 `
+export const UPDATE_PX_HORA = gql `
+    mutation UpdatePxHora($horaId: ID!, $paciente: String) {
+        updatePxHora(horaId: $horaId, paciente: $paciente) {
+            _id
+            tiempo
+            active
+            paciente
+        }
+    }
+
+`
 
 export const ADD_MODELO_TERAPEUTA = gql `
     mutation addModeloTerapeuta($name: String!, $description: String ) {

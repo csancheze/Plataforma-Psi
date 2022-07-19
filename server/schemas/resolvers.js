@@ -222,6 +222,12 @@ const resolvers = {
             })
             return hora
         },
+        updatePxHora: async (parent, args) => {
+            const hora = await Hora.findByIdAndUpdate(args.horaId, {
+                paciente: args.paciente
+            })
+            return hora
+        },
         updateTerapeuta: async (parent, args, context) => {
             const terapeutaData = await Terapeuta.findByIdAndUpdate(context.user._id, {
                 nombre: args.nombre,

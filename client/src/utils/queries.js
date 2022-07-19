@@ -83,6 +83,7 @@ export const QUERY_ME_HORARIOS = gql `
                             _id
                             tiempo
                             active
+                            paciente
                         }
                         active
                     }
@@ -129,6 +130,7 @@ export const TERAPEUTA = gql `
                 _id
                 tiempo
                 active
+                paciente
             }
             active
             }

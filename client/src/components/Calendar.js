@@ -3,9 +3,13 @@ import "../styles/calendar.css"
 import { useMutation, useQuery} from "@apollo/client";
 import { UPDATE_DIA, UPDATE_HORA } from "../utils/mutations";
 import { QUERY_ME_HORARIOS } from "../utils/queries";
+import ModalPaciente from "./ModalPaciente";
 
 const CalendarWidget= ({show}) => {
 
+    const [horaId, setHora] = useState({})
+    const [showPx, setShowPx] = useState(false)
+    const [nombrePaciente, setNombrePaciente] = useState({})
     
     const {loading: loadingTerapeuta,  data: dataTerapeuta, refetch: refetchTerapeuta} = useQuery(QUERY_ME_HORARIOS)
     let semana =dataTerapeuta?.terapeutaHorarios.terapeuta.dias || []
@@ -22,6 +26,11 @@ const CalendarWidget= ({show}) => {
         } else {
         setShowInstructions("visually-hidden")
         }
+    }
+
+    const handleClose = (event) => { 
+        event.preventDefault()
+        setShowPx(false);
     }
 
 
@@ -65,6 +74,17 @@ const CalendarWidget= ({show}) => {
         }
     }
 
+    const updatePaciente = async(event, id, paciente) => {
+        event.preventDefault();
+        setHora(id)
+        if (paciente) {
+            setNombrePaciente(paciente)
+        } else {
+            setNombrePaciente("Nombre del paciente")
+        }
+        setShowPx(true)
+    }
+
     if (loadingTerapeuta) {
         return <div>Loading...</div>
     }
@@ -90,11 +110,22 @@ const CalendarWidget= ({show}) => {
                 {semana.map((dia) => {
                 return <ul className= "d-flex flex-column p-0 calendar-column" key={dia.name}><li className="calendar-li mb-2"><button className = {`dia ${buttonActive(dia.active)} rounded calendar-button`} onClick={(event)=> activateDia(event, dia._id, dia.active)}>{dia.name}</button></li>
                 {dia.horas.map((hora) => {
-                    return <li className="calendar-li"  key={dia.name +" "+ hora._id}><button  onClick={(event)=> activateHora(event, hora._id, hora.active)} type="button" className = {` ${buttonActive(hora.active)} rounded border hora calendar-button`}>{hora.tiempo}</button></li>})}
+                    return <li className="calendar-li"  key={dia.name +" "+ hora._id}>
+                        <button  onClick={(event)=> activateHora(event, hora._id, hora.active)} type="button" className = {` ${buttonActive(hora.active)} rounded border hora `}>
+                            {hora.tiempo}
+                            </button>
+                            <button onClick={(event)=> updatePaciente(event, hora._id, hora.paciente)}>✐</button>
+                            </li>})}
                 </ul>})
                 }
                 
             </div>
+            <ModalPaciente
+                show={showPx}
+                onHide={handleClose}
+                hora ={horaId}
+                nombre = {nombrePaciente}
+            ></ModalPaciente>
         </div>
     )
 }

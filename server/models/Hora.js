@@ -10,6 +10,9 @@ const horaSchema = new Schema({
     active: {
         type: Boolean,
         default: false
+    },
+    paciente: {
+        type: String,
     }
 });
 
