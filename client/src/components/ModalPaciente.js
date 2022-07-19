@@ -31,6 +31,26 @@ const ModalPaciente= ({show, onHide, hora, nombre}) => {
             });
             if (paciente) {
                 alert("Paciente actualizado")
+                window.location.reload()
+            }
+        } catch (e) {
+            alert("Algo no funcionó")
+            console.error(e, error)
+        }
+    }
+
+    const  borrarPx = async (event) => {
+        event.preventDefault()
+        try {
+            const paciente = await UpdatePxHora ({
+                variables: {
+                    horaId: hora,
+                    paciente: ""
+                }
+            });
+            if (paciente) {
+                alert("Paciente actualizado")
+                window.location.reload()
             }
         } catch (e) {
             alert("Algo no funcionó")
@@ -55,8 +75,9 @@ const ModalPaciente= ({show, onHide, hora, nombre}) => {
             id="exampleFormControlInput1" 
             defaultValue={nombre} />
         </div>    
-        <button onClick={updatePx} className="show-calendar-button border rounded m-2">Actualizar</button>
-        <button id="close" onClick={onHide} className="show-calendar-button-close border rounded m-2">Cerrar</button>
+        <button onClick={updatePx} className="show-calendar-button w-50 m-0 border rounded mt-2">Actualizar</button>
+        <button onClick={borrarPx} className="show-calendar-button-close w-50 m-0 border rounded mt-2">Borrar</button>
+        <button id="close" onClick={onHide} className="show-calendar-button-close border rounded mt-2">Cerrar</button>
         </form>
 
         </Modal>

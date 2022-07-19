@@ -146,7 +146,7 @@ const typeDefs = gql`
         addServicio(name: String!): Servicios
         addArea(name: String!): Areas
         addHora(tiempo: String!): Hora
-        updatePxHora(horaID: ID! paciente: String!): Hora
+        updatePxHora(horaId: ID!, paciente: String): Hora
         addModelo(name: String!, description: String): Modelos
         addPost(title: String!, content: String, link: String, image: String, dateCreated: String ): Posts
         updateDia(diaId: ID!, active: Boolean): Dia

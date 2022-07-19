@@ -100,6 +100,8 @@ const CalendarWidget= ({show}) => {
               <li>El día está activado cuando el fondo aparecer de <span className="dia is-active rounded p-1">color</span>. Si el día está desactivado, así aparecerá en tu página.</li>
               <li>Haz click sobre la hora para activar o desactivar.</li>
               <li>La hora está activada cuando el fondo aparecer de <span className="hora is-active rounded p-1">color</span>. Si la hora está desactivada, así aparecerá en tu página.</li>
+              <li>Haz clic sobre el ✐ para actualizar o borrar paciente en este horario.</li>
+              <li>Los horarios con <strong>*</strong> indican que hay un paciente asignado.</li>
           </ol>
           </div>
 
@@ -108,13 +110,16 @@ const CalendarWidget= ({show}) => {
           
 
                 {semana.map((dia) => {
-                return <ul className= "d-flex flex-column p-0 calendar-column" key={dia.name}><li className="calendar-li mb-2"><button className = {`dia ${buttonActive(dia.active)} rounded calendar-button`} onClick={(event)=> activateDia(event, dia._id, dia.active)}>{dia.name}</button></li>
+                return <ul className= "d-flex flex-column p-1 calendar-column" key={dia.name}><li className="calendar-li mb-2"><button className = {`dia ${buttonActive(dia.active)} rounded calendar-button`} onClick={(event)=> activateDia(event, dia._id, dia.active)}>{dia.name}</button></li>
                 {dia.horas.map((hora) => {
-                    return <li className="calendar-li"  key={dia.name +" "+ hora._id}>
-                        <button  onClick={(event)=> activateHora(event, hora._id, hora.active)} type="button" className = {` ${buttonActive(hora.active)} rounded border hora `}>
-                            {hora.tiempo}
-                            </button>
-                            <button onClick={(event)=> updatePaciente(event, hora._id, hora.paciente)}>✐</button>
+                    return <li className={`row w-100 mb-1 mx-auto calendar-li ${buttonActive(hora.active)} rounded border`}  key={dia.name +" "+ hora._id}>
+                        <button  onClick={(event)=> activateHora(event, hora._id, hora.active)} type="button" className = {`col-7 col-lg-8 hora ${hora.paciente ? ("tooltip4") : ("")} button-${buttonActive(hora.active)}`}>
+                                {hora.tiempo} 
+                                {hora.paciente ? (<strong>*<span className="tooltiptext">Px: {hora.paciente}</span></strong>) : ("")}
+                        </button>
+                        <button  className= "calendar-name col-5 col-lg-4" onClick={(event)=> updatePaciente(event, hora._id, hora.paciente)}>
+                                <span> ✐</span>
+                        </button>
                             </li>})}
                 </ul>})
                 }

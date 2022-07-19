@@ -75,7 +75,7 @@ const Terapeuta = () => {
                         <h3>Modelos Terapeuticos: </h3>
                         <ul>
                         {terapeuta.modelos.map((modelo)=>{
-                            return <div><li className='w-100' key={modelo._id}> <h4 className='servicios' >{modelo.name}<span className='questionmark' onClick={(e) => showModeloInfo(e, modelo.description)}>?</span></h4></li>
+                            return <div><li className='w-100' key={modelo._id}> <h4 className='servicios' >{modelo.name}<span className='questionmark' onClick={(e) => showModeloInfo(e, modelo.description)}>*</span></h4></li>
                             <div className='d-flex'>
                             <ModeloInfo show={showInfo} onHide={onHideModeloInfo} description={description}></ModeloInfo>
                             </div>
