@@ -1,4 +1,4 @@
-# Plataforma Psi ![MIT](https://img.shields.io/apm/l/vim-mode?style=plastic)
+# Plataforma Psi ![MIT](https://img.shields.io/badge/license-MIT-blue)
 
   ## Description
   
